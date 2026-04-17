@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Raju Knowledge Resources – Copilot Studio & Agents</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;min-height:100vh}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#003E8A 0%,#0078D4 55%,#00B0F0 100%);padding:50px 60px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
+.hero-inner{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 20px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:16px}
+.hero h1{font-size:2.6rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;letter-spacing:-1px}
+.hero h1 span{color:#A8D8FF}
+.hero p{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:680px;margin:0 auto 24px;line-height:1.6}
+.hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+.hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:12px 22px;color:#fff;text-align:center;cursor:pointer;transition:background .2s,transform .2s}
+.hero-stat:hover{background:rgba(255,255,255,.28);transform:translateY(-3px)}
+.hero-stat .hs-n{font-size:1.5rem;font-weight:900;line-height:1}
+.hero-stat .hs-l{font-size:.72rem;opacity:.8;margin-top:3px}
+.hero-meta{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero-meta span{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);border-radius:12px;padding:4px 14px;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s,transform .2s}
+.hero-meta span:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+
+/* ── MAIN ── */
+.main{max-width:1280px;margin:0 auto;padding:40px 30px 80px}
+.section-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#0078D4;margin-bottom:8px}
+.section-title{font-size:1.6rem;font-weight:800;color:#003E8A;margin-bottom:6px}
+.section-sub{font-size:.88rem;color:#666;margin-bottom:28px}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:50px}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.grid{grid-template-columns:1fr}}
+
+/* ── RESOURCE CARD ── */
+.rcard{background:#fff;border-radius:18px;border:2px solid #E8ECF4;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.rcard:hover{transform:translateY(-6px);box-shadow:0 16px 45px rgba(0,78,212,.12);border-color:#0078D4}
+.rcard-header{padding:22px 22px 14px;position:relative}
+.rcard-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:12px;flex-shrink:0}
+.rcard-title{font-size:1.05rem;font-weight:800;color:#003E8A;margin-bottom:4px;line-height:1.3}
+.rcard-url{font-size:.68rem;color:#0078D4;word-break:break-all;margin-bottom:8px;opacity:.8}
+.rcard-desc{font-size:.82rem;color:#555;line-height:1.5}
+.rcard-footer{margin-top:auto;padding:14px 22px;display:flex;gap:8px;align-items:center;border-top:1px solid #F0F4F8}
+.rcard-pill{font-size:.7rem;font-weight:700;border-radius:10px;padding:3px 10px}
+.rcard-cta{margin-left:auto;font-size:.75rem;font-weight:700;color:#0078D4;white-space:nowrap}
+.rcard-tag-bar{display:flex;flex-wrap:wrap;gap:5px;padding:0 22px 14px}
+
+/* colour themes */
+.th-blue .rcard-icon{background:#EFF6FF;color:#0078D4}
+.th-blue .rcard-pill{background:#EFF6FF;color:#0078D4}
+.th-green .rcard-icon{background:#EFF9EE;color:#107C10}
+.th-green .rcard-pill{background:#EFF9EE;color:#107C10}
+.th-orange .rcard-icon{background:#FFF4EC;color:#FF8C00}
+.th-orange .rcard-pill{background:#FFF4EC;color:#FF8C00}
+.th-purple .rcard-icon{background:#F5F0FB;color:#8764B8}
+.th-purple .rcard-pill{background:#F5F0FB;color:#8764B8}
+.th-teal .rcard-icon{background:#F0FAFB;color:#00B294}
+.th-teal .rcard-pill{background:#F0FAFB;color:#00B294}
+.th-pink .rcard-icon{background:#FEF0F9;color:#E3008C}
+.th-pink .rcard-pill{background:#FEF0F9;color:#E3008C}
+.th-red .rcard-icon{background:#FEF3EE;color:#D83B01}
+.th-red .rcard-pill{background:#FEF3EE;color:#D83B01}
+
+/* ── FEATURED BANNER ── */
+.featured-banner{background:linear-gradient(135deg,#003E8A,#0078D4);border-radius:18px;padding:28px 32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:box-shadow .2s}
+.featured-banner:hover{box-shadow:0 12px 40px rgba(0,78,212,.25)}
+.fb-icon{font-size:3rem;flex-shrink:0}
+.fb-body{flex:1}
+.fb-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.7);margin-bottom:4px}
+.fb-title{font-size:1.35rem;font-weight:800;color:#fff;margin-bottom:6px}
+.fb-desc{font-size:.87rem;color:rgba(255,255,255,.8);line-height:1.5}
+.fb-arrow{font-size:1.8rem;color:rgba(255,255,255,.6);flex-shrink:0}
+.fb-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.fb-tag{background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:3px 12px;font-size:.73rem;font-weight:600}
+
+/* ── QUICK LINKS ROW ── */
+.quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:50px}
+@media(max-width:800px){.quick-row{grid-template-columns:1fr 1fr}}
+.qlink{background:#fff;border:2px solid #E8ECF4;border-radius:14px;padding:16px;text-align:center;text-decoration:none;color:inherit;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px}
+.qlink:hover{border-color:#0078D4;background:#EFF6FF;transform:translateY(-3px)}
+.qlink-icon{font-size:1.8rem}
+.qlink-label{font-size:.78rem;font-weight:700;color:#003E8A}
+.qlink-sub{font-size:.68rem;color:#888}
+
+/* ── MODAL ── */
+.overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;align-items:center;justify-content:center;padding:20px}
+.overlay.show{display:flex}
+.modal{background:#fff;border-radius:22px;max-width:900px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.25);position:relative}
+.modal-hero{padding:28px 32px 20px;border-bottom:2px solid #F0F4F8}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#888;z-index:1;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.modal-close:hover{background:#F0F4F8}
+.modal-h{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.modal-hicon{width:60px;height:60px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.modal-title{font-size:1.4rem;font-weight:900;color:#003E8A;line-height:1.2}
+.modal-url{font-size:.78rem;margin-top:4px}
+.modal-url a{color:#0078D4;text-decoration:none;word-break:break-all}
+.modal-url a:hover{text-decoration:underline}
+.modal-body{padding:24px 32px 28px}
+.m-section{margin-bottom:24px}
+.m-section-title{font-size:.92rem;font-weight:800;color:#003E8A;margin-bottom:12px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #EEF2F8;padding-bottom:6px}
+.m-item{display:flex;gap:12px;align-items:flex-start;padding:10px 14px;border-radius:10px;margin-bottom:8px;border:1px solid #EEF2F8;background:#FAFCFF;transition:background .15s}
+.m-item:hover{background:#EFF6FF}
+.m-item-icon{font-size:1.3rem;flex-shrink:0;margin-top:1px}
+.m-item-body{}
+.m-item-title{font-size:.88rem;font-weight:700;color:#003E8A;margin-bottom:2px}
+.m-item-desc{font-size:.78rem;color:#555;line-height:1.45}
+.m-item-link{display:inline-block;margin-top:5px;font-size:.75rem;font-weight:700;color:#0078D4;text-decoration:none;background:#EFF6FF;padding:2px 10px;border-radius:8px}
+.m-item-link:hover{background:#DCE9FF;text-decoration:underline}
+.m-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.m-tag{border-radius:10px;padding:3px 11px;font-size:.73rem;font-weight:600}
+.m-cta{display:block;text-decoration:none;margin-top:18px;background:linear-gradient(90deg,#003E8A,#0078D4);color:#fff;border-radius:12px;padding:14px 20px;text-align:center;font-size:.92rem;font-weight:700;transition:opacity .2s}
+.m-cta:hover{opacity:.88}
+.m-cta span{opacity:.7;font-size:.8rem;margin-left:6px}
+.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.m-grid{grid-template-columns:1fr}}
+.m-blog-card{background:#F8FAFF;border:1px solid #E0EEFF;border-radius:10px;padding:12px 14px}
+.m-blog-date{font-size:.68rem;color:#888;margin-bottom:3px}
+.m-blog-title{font-size:.83rem;font-weight:700;color:#003E8A;margin-bottom:4px;line-height:1.3}
+.m-blog-tags{display:flex;gap:4px;flex-wrap:wrap}
+.m-blog-tag{background:#EFF6FF;color:#0078D4;border-radius:6px;padding:2px 7px;font-size:.66rem;font-weight:600}
+.m-stat-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.m-stat{flex:1;min-width:100px;background:linear-gradient(135deg,#EFF6FF,#DCE9FF);border-radius:12px;padding:14px;text-align:center}
+.m-stat-n{font-size:1.5rem;font-weight:900;color:#0078D4}
+.m-stat-l{font-size:.72rem;color:#555;margin-top:2px}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">📚 Microsoft FastTrack CE · Curated by Raju Birru</div>
+    <h1>Knowledge Resources<br><span>Copilot Studio &amp; Agents</span></h1>
+    <p>A curated collection of official Microsoft learning labs, governance guides, developer tools, blog posts, and CAT (Copilot Acceleration Team) programs — everything you need to build, deploy, and govern AI agents at enterprise scale.</p>
+    <div class="hero-stats">
+      <div class="hero-stat" onclick="openModal('all-hubs')"><div class="hs-n">14</div><div class="hs-l">Resource Hubs</div></div>
+      <div class="hero-stat" onclick="openModal('mcs-labs')"><div class="hs-n">50+</div><div class="hs-l">Labs &amp; Workshops</div></div>
+      <div class="hero-stat" onclick="openModal('all-docs')"><div class="hs-n">80+</div><div class="hs-l">Doc Links</div></div>
+      <div class="hero-stat" onclick="openModal('mcs-blog')"><div class="hs-n">10+</div><div class="hs-l">Blog Posts</div></div>
+    </div>
+    <div class="hero-meta">
+      <span onclick="openModal('mcs-resources')">🤖 Copilot Studio</span>
+      <span onclick="openModal('m365-copilot')">🏢 M365 Copilot</span>
+      <span onclick="openModal('azure-foundry')">☁️ Azure AI Foundry</span>
+      <span onclick="openModal('copilot-studio-gov')">🛡️ Governance &amp; Security</span>
+      <span onclick="openModal('developer-tools')">🔧 Developer Tools</span>
+      <span onclick="openModal('analytics-evals')">📊 Analytics &amp; Evals</span>
+      <span onclick="openModal('d365-ce')">🤝 D365 Customer Engagement</span>
+      <span onclick="openModal('d365-fo')">⚙️ D365 Finance &amp; Ops</span>
+      <span onclick="openModal('power-platform')">⚡ Power Platform</span>
+      <span onclick="openModal('certifications-cs')">🏅 Certifications</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ MAIN ══════════════════ -->
+<div class="main">
+
+  <!-- Featured banner -->
+  <div class="featured-banner" onclick="openModal('agent-resources')">
+    <div class="fb-icon">🌐</div>
+    <div class="fb-body">
+      <div class="fb-label">⭐ Featured Hub</div>
+      <div class="fb-title">Microsoft Agent Resources — The Complete Hub</div>
+      <div class="fb-desc">The definitive starting point for everything agents at Microsoft — M365 Copilot, Copilot Studio, Azure AI Foundry, Agent Developer SDKs, Agent 365, and the Agent Platform Advisor. One URL, every direction.</div>
+      <div class="fb-tags">
+        <span class="fb-tag">M365 Copilot</span>
+        <span class="fb-tag">Copilot Studio</span>
+        <span class="fb-tag">Azure AI Foundry</span>
+        <span class="fb-tag">Agent 365</span>
+        <span class="fb-tag">Developer SDKs</span>
+        <span class="fb-tag">Platform Advisor</span>
+      </div>
+    </div>
+    <div class="fb-arrow">›</div>
+  </div>
+
+  <div class="section-label">🧪 Hands-On Learning</div>
+  <div class="section-title">Labs, Workshops &amp; Training Programs</div>
+  <div class="section-sub">Interactive hands-on experiences — from beginner labs to advanced architecture bootcamps</div>
+
+  <div class="grid">
+
+    <!-- MCS Labs -->
+    <div class="rcard th-blue" onclick="openModal('mcs-labs')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🧪</div>
+        <div class="rcard-title">Microsoft Copilot Studio Labs</div>
+        <div class="rcard-url">microsoft.github.io/mcs-labs/</div>
+        <div class="rcard-desc">Hands-on labs for building AI agents with Copilot Studio. Multiple learning journeys from Quick Start to Advanced Autonomous AI — 50+ labs across 5 workshop formats.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-blue">🚀 Quick Start</span>
+        <span class="rcard-pill th-blue">💼 Business User</span>
+        <span class="rcard-pill th-blue">🤖 Autonomous AI</span>
+        <span class="rcard-pill th-blue">🔧 Developer</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-blue">50+ Labs</span>
+        <span class="rcard-pill th-blue">5 Events</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- CAT (Copilot Acceleration Team) -->
+    <div class="rcard th-purple" onclick="openModal('cat')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🚀</div>
+        <div class="rcard-title">Copilot Acceleration Team (CAT)</div>
+        <div class="rcard-url">microsoft.github.io/cat/</div>
+        <div class="rcard-desc">Microsoft's dedicated team for accelerating adoption of M365 Copilot and Copilot Studio. Real-world tools, programs, and guidance developed from enterprise customer experiences.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-purple">Webinars</span>
+        <span class="rcard-pill th-purple">Bootcamps</span>
+        <span class="rcard-pill th-purple">Hackathons</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-purple">Official Microsoft</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- Power CAT -->
+    <div class="rcard th-teal" onclick="openModal('powercat')">
+      <div class="rcard-header">
+        <div class="rcard-icon">⚡</div>
+        <div class="rcard-title">Power CAT Tools &amp; Programs</div>
+        <div class="rcard-url">microsoft.github.io/powercat/</div>
+        <div class="rcard-desc">Power Platform CAT tools — Creator Kit, CoE Starter Kit, Automation Kit, AI Webinars, Architecture Bootcamps, and Agent Hackathons. Enterprise governance at scale.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-teal">CoE Kit</span>
+        <span class="rcard-pill th-teal">Creator Kit</span>
+        <span class="rcard-pill th-teal">AI Webinars</span>
+        <span class="rcard-pill th-teal">Hackathons</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-teal">Power Platform</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label">📖 Documentation &amp; Governance</div>
+  <div class="section-title">Official Docs, Governance &amp; Security Resources</div>
+  <div class="section-sub">Deep-dive reference documentation, security frameworks, and compliance guidance from Microsoft engineering teams</div>
+
+  <div class="grid">
+
+    <!-- Agent Resources – Copilot Studio Governance -->
+    <div class="rcard th-orange" onclick="openModal('copilot-studio-gov')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🛡️</div>
+        <div class="rcard-title">Copilot Studio — Security &amp; Governance</div>
+        <div class="rcard-url">microsoft.github.io/agent-resources/copilot-studio/</div>
+        <div class="rcard-desc">Comprehensive governance guide — DLP policies, audit logs, tenant inventory, ALM strategy, Helix scoring, Purview integration, and security maturity model. Enterprise-grade compliance.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-orange">DLP</span>
+        <span class="rcard-pill th-orange">Governance</span>
+        <span class="rcard-pill th-orange">Security</span>
+        <span class="rcard-pill th-orange">ALM</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-orange">14+ Doc Links</span>
+        <span class="rcard-pill th-orange">Build 2025</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- MCS CAT Blog Resources -->
+    <div class="rcard th-green" onclick="openModal('mcs-resources')">
+      <div class="rcard-header">
+        <div class="rcard-icon">📚</div>
+        <div class="rcard-title">Copilot Studio Resources Guide</div>
+        <div class="rcard-url">microsoft.github.io/mcscatblog/resources/</div>
+        <div class="rcard-desc">CAT's curated resource guide — docs, training programs, tools, SDKs, community forums, and certifications. The Implementation Guide PPT is the CAT's end-to-end enterprise blueprint.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-green">Docs</span>
+        <span class="rcard-pill th-green">Training</span>
+        <span class="rcard-pill th-green">SDKs</span>
+        <span class="rcard-pill th-green">Community</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-green">40+ Resources</span>
+        <span class="rcard-pill th-green">Certified</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- MCS CAT Blog Posts -->
+    <div class="rcard th-pink" onclick="openModal('mcs-blog')">
+      <div class="rcard-header">
+        <div class="rcard-icon">✍️</div>
+        <div class="rcard-title">MCS CAT Engineering Blog</div>
+        <div class="rcard-url">microsoft.github.io/mcscatblog/</div>
+        <div class="rcard-desc">Latest deep-dive technical posts from the Microsoft Copilot Studio CAT engineering team — deployment patterns, MCP routing, Teams integration, conversation transcripts, and agent improvement loops.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-pink">Teams Deployment</span>
+        <span class="rcard-pill th-pink">MCP</span>
+        <span class="rcard-pill th-pink">Dataverse</span>
+        <span class="rcard-pill th-pink">Testing</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-pink">Weekly Posts</span>
+        <span class="rcard-pill th-pink">Engineering</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-label">🤖 Agent Ecosystem — New in 2026</div>
+  <div class="section-title">Agent 365 · Developer Hub · Copilot Cowork</div>
+  <div class="section-sub">The latest additions to the Microsoft agent platform — confirmed via <a href="https://github.com/microsoft/agent-resources" target="_blank" style="color:#0078D4;font-weight:700">github.com/microsoft/agent-resources</a> changelog · Last updated April 2026</div>
+
+  <div class="grid">
+
+    <!-- Agent 365 -->
+    <div class="rcard th-purple" onclick="openModal('agent365')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🎛️</div>
+        <div class="rcard-title">Agent 365 — Agent Workforce Control Plane</div>
+        <div class="rcard-url">microsoft.github.io/agent-resources/agent365/</div>
+        <div class="rcard-desc">Manage your entire AI agent workforce from one place — monitor, govern, and scale all agents across M365. Includes SDK, governance resources, RSAC 2026 Entra innovations, and an active MVP community.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-purple">SDK</span>
+        <span class="rcard-pill th-purple">Governance</span>
+        <span class="rcard-pill th-purple">8 MVP Blogs</span>
+        <span class="rcard-pill th-purple">Apr 2026</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-purple">New Content</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- Agent Developer Resources -->
+    <div class="rcard th-red" onclick="openModal('agent-developer')">
+      <div class="rcard-header">
+        <div class="rcard-icon">💻</div>
+        <div class="rcard-title">Agent Developer Resources Hub</div>
+        <div class="rcard-url">microsoft.github.io/agent-resources/develop-agents/</div>
+        <div class="rcard-desc">Complete developer hub — M365 Agents SDK, Microsoft Agent Framework, Semantic Kernel, MCP, A2A protocol, AI Agents for Beginners course, Build/Ignite 2025 sessions, multi-agent reference architecture, and open-source samples.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-red">MCP</span>
+        <span class="rcard-pill th-red">A2A</span>
+        <span class="rcard-pill th-red">Agent Framework</span>
+        <span class="rcard-pill th-red">Semantic Kernel</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-red">Massively Expanded</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <!-- Copilot Cowork -->
+    <div class="rcard th-blue" onclick="openModal('copilot-cowork')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🤝</div>
+        <div class="rcard-title">Copilot Cowork</div>
+        <div class="rcard-url">microsoft.github.io/agent-resources/m365-copilot/ → Cowork</div>
+        <div class="rcard-desc">M365 Copilot's newest AI collaboration mode — Copilot plans, acts, and pauses for your approval on multi-step tasks. Now in Frontier preview. Announced by Charles Lamanna with strong MVP community coverage.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-blue">Frontier Preview</span>
+        <span class="rcard-pill th-blue">Plan-Act-Approve</span>
+        <span class="rcard-pill th-blue">Apr 2026</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-blue">New Feature</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Dynamics 365 & Power Platform -->
+  <div class="section-label">⚙️ Dynamics 365 &amp; Power Platform</div>
+  <div class="section-title">Customer Engagement · Finance &amp; Operations · Power Platform</div>
+  <div class="section-sub">Official Microsoft docs, FastTrack resources, and architecture guidance for D365 CE, F&amp;O, and the full Power Platform ecosystem</div>
+
+  <div class="grid">
+    <div class="rcard th-orange" onclick="openModal('d365-ce')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🤝</div>
+        <div class="rcard-title">D365 Customer Engagement</div>
+        <div class="rcard-url">learn.microsoft.com/dynamics365/</div>
+        <div class="rcard-desc">Sales, Customer Service, Customer Insights (Data &amp; Journeys), and Contact Center/CCaaS — including first-party AI Agents: Sales Qualification, Sales Close, Sales Research, and Data Enrichment Agents built into D365.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-orange">Sales</span>
+        <span class="rcard-pill th-orange">Customer Service</span>
+        <span class="rcard-pill th-orange">CI</span>
+        <span class="rcard-pill th-orange">CCaaS</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-orange">AI Agents</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <div class="rcard th-teal" onclick="openModal('d365-fo')">
+      <div class="rcard-header">
+        <div class="rcard-icon">⚙️</div>
+        <div class="rcard-title">D365 Finance &amp; Operations</div>
+        <div class="rcard-url">learn.microsoft.com/dynamics365/fin-ops-core/</div>
+        <div class="rcard-desc">Finance, Supply Chain Management, Project Operations, Human Resources — implementation guides, LCS, performance tooling, data migration, upgrade paths, and FastTrack for F&amp;O.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-teal">Finance</span>
+        <span class="rcard-pill th-teal">Supply Chain</span>
+        <span class="rcard-pill th-teal">Project Ops</span>
+        <span class="rcard-pill th-teal">HR</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-teal">FastTrack</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <div class="rcard th-purple" onclick="openModal('power-platform')">
+      <div class="rcard-header">
+        <div class="rcard-icon">⚡</div>
+        <div class="rcard-title">Power Platform</div>
+        <div class="rcard-url">learn.microsoft.com/power-platform/</div>
+        <div class="rcard-desc">Power Apps, Power Automate, Power Pages, Power BI, and AI Builder — CoE Starter Kit, Well-Architected Framework, ALM/DevOps pipelines, governance at scale, and Dataverse as the unified data foundation.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-purple">Apps</span>
+        <span class="rcard-pill th-purple">Automate</span>
+        <span class="rcard-pill th-purple">Power BI</span>
+        <span class="rcard-pill th-purple">Pages</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-purple">CoE Kit</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certifications -->
+  <div class="section-label">🏅 Certifications</div>
+  <div class="section-title">Copilot Studio · Power Platform · Dynamics 365 — Official Microsoft Credentials</div>
+  <div class="section-sub">Applied Skills (hands-on lab assessments), role-based certifications, and learning paths to validate and grow your expertise</div>
+
+  <div class="grid">
+    <div class="rcard th-blue" onclick="openModal('certifications-cs')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🤖</div>
+        <div class="rcard-title">Copilot Studio Certifications</div>
+        <div class="rcard-url">learn.microsoft.com/credentials/</div>
+        <div class="rcard-desc">Applied Skills for agent building, PL-200 Functional Consultant, AI-102 Azure AI Engineer, AI-900 Fundamentals, and the full Agent Academy learning path — free and paid credentials for every level.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-blue">Applied Skills</span>
+        <span class="rcard-pill th-blue">PL-200</span>
+        <span class="rcard-pill th-blue">AI-102</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-blue">5 Credentials</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <div class="rcard th-green" onclick="openModal('certifications-pp')">
+      <div class="rcard-header">
+        <div class="rcard-icon">⚡</div>
+        <div class="rcard-title">Power Platform Certifications</div>
+        <div class="rcard-url">learn.microsoft.com/credentials/</div>
+        <div class="rcard-desc">Full certification track from Fundamentals (PL-900) to Expert (PL-600) — App Maker, Functional Consultant, Data Analyst, Developer, RPA Developer, and Solution Architect, plus Applied Skills lab credentials.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-green">PL-900</span>
+        <span class="rcard-pill th-green">PL-200</span>
+        <span class="rcard-pill th-green">PL-400</span>
+        <span class="rcard-pill th-green">PL-600</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-green">7 Certifications</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <div class="rcard th-orange" onclick="openModal('certifications-d365')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🎯</div>
+        <div class="rcard-title">Dynamics 365 Certifications</div>
+        <div class="rcard-url">learn.microsoft.com/credentials/</div>
+        <div class="rcard-desc">Role-based certifications across CE and F&amp;O — D365 Sales (MB-210), Customer Service (MB-230), Customer Insights (MB-260), Finance (MB-310), Supply Chain (MB-330), and Solution Architect (MB-700).</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-orange">MB-210</span>
+        <span class="rcard-pill th-orange">MB-230</span>
+        <span class="rcard-pill th-orange">MB-260</span>
+        <span class="rcard-pill th-orange">MB-700</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-orange">6 Certifications</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Links -->
+  <div class="section-label">⚡ Quick Navigate</div>
+  <div class="section-title">Direct Links — No Clicks Required</div>
+  <div class="section-sub">Jump straight to the right resource</div>
+
+  <div class="quick-row">
+    <a href="https://microsoft.github.io/agent-academy/" target="_blank" class="qlink">
+      <span class="qlink-icon">🎓</span>
+      <span class="qlink-label">Agent Academy</span>
+      <span class="qlink-sub">Fundamentals to advanced design</span>
+    </a>
+    <a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/" target="_blank" class="qlink">
+      <span class="qlink-icon">📖</span>
+      <span class="qlink-label">Guidance Docs</span>
+      <span class="qlink-sub">Enterprise best practices</span>
+    </a>
+    <a href="https://aka.ms/CopilotStudioImplementationGuide" target="_blank" class="qlink">
+      <span class="qlink-icon">🏗️</span>
+      <span class="qlink-label">Implementation Guide</span>
+      <span class="qlink-sub">CAT's enterprise blueprint (PPT)</span>
+    </a>
+    <a href="https://learn.microsoft.com/credentials/applied-skills/create-agents-in-microsoft-copilot-studio/" target="_blank" class="qlink">
+      <span class="qlink-icon">🏅</span>
+      <span class="qlink-label">Applied Skills Cert</span>
+      <span class="qlink-sub">Microsoft credential for agents</span>
+    </a>
+    <a href="https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit" target="_blank" class="qlink">
+      <span class="qlink-icon">🔧</span>
+      <span class="qlink-label">Copilot Studio Kit</span>
+      <span class="qlink-sub">Batch testing &amp; compliance tools</span>
+    </a>
+    <a href="https://learn.microsoft.com/microsoft-copilot-studio/security-and-governance" target="_blank" class="qlink">
+      <span class="qlink-icon">🛡️</span>
+      <span class="qlink-label">Security &amp; Governance</span>
+      <span class="qlink-sub">DLP, compliance, data residency</span>
+    </a>
+    <a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/generative-orchestration" target="_blank" class="qlink">
+      <span class="qlink-icon">🧠</span>
+      <span class="qlink-label">Generative Orchestration</span>
+      <span class="qlink-sub">High-quality instructions guide</span>
+    </a>
+    <a href="https://microsoft.github.io/AgentPlatformAdvisor/" target="_blank" class="qlink">
+      <span class="qlink-icon">🧭</span>
+      <span class="qlink-label">Agent Platform Advisor</span>
+      <span class="qlink-sub">Which platform is right for you?</span>
+    </a>
+  </div>
+
+  <div style="text-align:center;color:#888;font-size:.8rem;padding-top:20px">
+    Curated by <strong style="color:#003E8A">Raju Birru</strong> · Senior Solutions Architect · Microsoft FastTrack CE · FY26
+  </div>
+</div>
+
+<!-- ══════════════════ MODAL OVERLAY ══════════════════ -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-box">
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const modals = {
+
+'agent-resources': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF6FF">🌐</div>
+    <div>
+      <div class="modal-title">Microsoft Agent Resources</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/agent-resources/" target="_blank">microsoft.github.io/agent-resources/ ↗</a></div>
+    </div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">6</div><div class="m-stat-l">Resource Sections</div></div>
+    <div class="m-stat"><div class="m-stat-n">100+</div><div class="m-stat-l">Docs &amp; Links</div></div>
+    <div class="m-stat"><div class="m-stat-n">1</div><div class="m-stat-l">Platform Advisor</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">🗺️ Six Core Resource Sections</div>
+    <div class="m-item"><div class="m-item-icon">🏢</div><div class="m-item-body"><div class="m-item-title">M365 Copilot Resources</div><div class="m-item-desc">Resources to help you adopt, deploy, and extend Microsoft 365 Copilot across your organisation — setup, governance, extensibility, and user adoption.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Open resource →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Copilot Studio Resources</div><div class="m-item-desc">Design, build, and deploy agents with Microsoft Copilot Studio — including security, governance, ALM, DLP, and enterprise deployment patterns.</div><a href="https://microsoft.github.io/agent-resources/copilot-studio/" target="_blank" class="m-item-link">Open resource →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">☁️</div><div class="m-item-body"><div class="m-item-title">Microsoft Foundry Resources</div><div class="m-item-desc">Build, evaluate, and deploy AI models and agents with Microsoft Azure AI Foundry — model catalogue, prompt flows, evaluations, and deployment.</div><a href="https://microsoft.github.io/agent-resources/microsoft-foundry/" target="_blank" class="m-item-link">Open resource →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Agent Developer Resources</div><div class="m-item-desc">SDKs, frameworks, protocols (MCP, A2A), and samples for developers building agents with Microsoft tools — M365 Agents SDK, Bot Framework, Azure AI SDKs.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Open resource →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Agent 365 Resources</div><div class="m-item-desc">Manage your entire agent workforce with Agent 365 — the control plane for AI agents. Monitor, govern, and scale all agents from a central hub.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Open resource →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧭</div><div class="m-item-body"><div class="m-item-title">Agent Platform Advisor</div><div class="m-item-desc">Not sure which platform to build on? Answer a few questions and get a personalised recommendation — Copilot Studio vs Azure AI Foundry vs M365 Agents SDK.</div><a href="https://microsoft.github.io/AgentPlatformAdvisor/" target="_blank" class="m-item-link">Launch Advisor →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/" target="_blank" class="m-cta">🌐 Open Microsoft Agent Resources Hub <span>↗ microsoft.github.io/agent-resources/</span></a>
+</div>`,
+
+'mcs-labs': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF6FF">🧪</div>
+    <div>
+      <div class="modal-title">Microsoft Copilot Studio Labs</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/mcs-labs/" target="_blank">microsoft.github.io/mcs-labs/ ↗</a></div>
+    </div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">50+</div><div class="m-stat-l">Hands-On Labs</div></div>
+    <div class="m-stat"><div class="m-stat-n">5</div><div class="m-stat-l">Workshop Events</div></div>
+    <div class="m-stat"><div class="m-stat-n">4</div><div class="m-stat-l">Learning Journeys</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">📅 Featured Workshop Events</div>
+    <div class="m-item"><div class="m-item-icon">☁️</div><div class="m-item-body"><div class="m-item-title">MCS + Azure AI Workshop <span style="font-size:.72rem;background:#EFF6FF;color:#0078D4;border-radius:6px;padding:1px 7px;margin-left:6px">2-3hrs · 5 labs</span></div><div class="m-item-desc">Comprehensive hands-on workshop combining Copilot Studio with Azure AI services for building intelligent, enterprise-grade AI solutions. Covers Azure OpenAI, AI Search, and advanced orchestration.</div><a href="https://microsoft.github.io/mcs-labs/labs/azure-ai-workshop/?event=azure-ai-workshop" target="_blank" class="m-item-link">Start Workshop →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">⚡</div><div class="m-item-body"><div class="m-item-title">MCS in a Day <span style="font-size:.72rem;background:#EFF9EE;color:#107C10;border-radius:6px;padding:1px 7px;margin-left:6px">2-3hrs · 4 labs</span></div><div class="m-item-desc">Full-day workshop covering progressive AI assistants, knowledge sources, tools, variables, multi-agent architectures, and analytics. Best for teams new to Copilot Studio.</div><a href="https://microsoft.github.io/mcs-labs/labs/mcs-in-a-day/?event=mcs-in-a-day" target="_blank" class="m-item-link">Start Workshop →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">Agent Build-A-Thon — 1 Day <span style="font-size:.72rem;background:#FFF4EC;color:#FF8C00;border-radius:6px;padding:1px 7px;margin-left:6px">50mins · 2 labs</span></div><div class="m-item-desc">One-day intensive focused on web-based and SharePoint-integrated AI assistants. Fast-paced, hands-on delivery model — ideal for hackathon formats.</div><a href="https://microsoft.github.io/mcs-labs/labs/agent-buildathon-1day/?event=agent-buildathon-1day" target="_blank" class="m-item-link">Start Workshop →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🚀</div><div class="m-item-body"><div class="m-item-title">Agent Build-A-Thon — 1 Month <span style="font-size:.72rem;background:#F5F0FB;color:#8764B8;border-radius:6px;padding:1px 7px;margin-left:6px">3-4hrs · 8 labs</span></div><div class="m-item-desc">Comprehensive month-long program covering declarative agents, autonomous AI, and enterprise deployment patterns. Ideal for structured team learning programmes.</div><a href="https://microsoft.github.io/mcs-labs/labs/agent-buildathon-1month/?event=agent-buildathon-1month" target="_blank" class="m-item-link">Start Workshop →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">⚔️</div><div class="m-item-body"><div class="m-item-title">Architecture Bootcamp <span style="font-size:.72rem;background:#FEF0F9;color:#E3008C;border-radius:6px;padding:1px 7px;margin-left:6px">6hrs · 10 labs</span></div><div class="m-item-desc">Intensive bootcamp covering progressive AI assistants, governance, tools, multi-agent architectures, and autonomous agents. For solution architects and senior developers.</div><a href="https://microsoft.github.io/mcs-labs/labs/bootcamp/?event=bootcamp" target="_blank" class="m-item-link">Start Bootcamp →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">🎯 Learning Journeys</div>
+    <div class="m-grid">
+      <div class="m-item"><div class="m-item-icon">🚀</div><div class="m-item-body"><div class="m-item-title">Quick Start</div><div class="m-item-desc">Beginner · 8hrs · 9 labs. Essential labs to get up and running with Copilot Studio.</div></div></div>
+      <div class="m-item"><div class="m-item-icon">💼</div><div class="m-item-body"><div class="m-item-title">Business User</div><div class="m-item-desc">Beginner–Intermediate · 14-15hrs · 21 labs. AI assistants without deep technical knowledge.</div></div></div>
+      <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Autonomous AI</div><div class="m-item-desc">Advanced · 1.3hrs · 3 labs. Cutting-edge autonomous agents with minimal human intervention.</div></div></div>
+      <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">Developer</div><div class="m-item-desc">Intermediate–Advanced · 14-15hrs · 24 labs. Advanced features, integrations, and dev best practices.</div></div></div>
+    </div>
+  </div>
+  <a href="https://microsoft.github.io/mcs-labs/" target="_blank" class="m-cta">🧪 Open Copilot Studio Labs <span>↗ microsoft.github.io/mcs-labs/</span></a>
+</div>`,
+
+'cat': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F5F0FB">🚀</div>
+    <div>
+      <div class="modal-title">Copilot Acceleration Team (CAT)</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/cat/" target="_blank">microsoft.github.io/cat/ ↗</a></div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">🏢 About the CAT Team</div>
+    <div class="m-item"><div class="m-item-icon">🎯</div><div class="m-item-body"><div class="m-item-title">Mission</div><div class="m-item-desc">The Copilot Acceleration Team (CAT) is part of the Copilot Studio engineering team at Microsoft. Their mission is to accelerate adoption and success of M365 Copilot and Copilot Studio — empowering organisations to achieve agentic transformation at scale.</div></div></div>
+    <div class="m-item"><div class="m-item-icon">🔬</div><div class="m-item-body"><div class="m-item-title">What Makes CAT Unique</div><div class="m-item-desc">All resources, tools, programs, and guidance are developed from real-world enterprise customer experience — not theoretical. CAT works directly with the largest enterprise deployments globally.</div></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">📦 Key CAT Outputs</div>
+    <div class="m-item"><div class="m-item-icon">🧪</div><div class="m-item-body"><div class="m-item-title">MCS Labs</div><div class="m-item-desc">50+ hands-on labs across 5 workshop formats. Built and maintained by the CAT engineering team.</div><a href="https://microsoft.github.io/mcs-labs/" target="_blank" class="m-item-link">Open MCS Labs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📖</div><div class="m-item-body"><div class="m-item-title">CAT Engineering Blog</div><div class="m-item-desc">Regular deep-dive technical posts on advanced Copilot Studio patterns, MCP, Teams deployment, and autonomous agents.</div><a href="https://microsoft.github.io/mcscatblog/" target="_blank" class="m-item-link">Read the Blog →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">Copilot Studio Kit</div><div class="m-item-desc">Open-source toolkit for batch testing, compliance, prompt optimisation, and governance — downloadable from Microsoft Marketplace.</div><a href="https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit" target="_blank" class="m-item-link">GitHub Repo →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">Implementation Guide (PPT)</div><div class="m-item-desc">CAT's end-to-end enterprise blueprint for planning, architecting, and deploying Copilot Studio at scale. Available as a downloadable PowerPoint.</div><a href="https://aka.ms/CopilotStudioImplementationGuide" target="_blank" class="m-item-link">Download Guide →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/cat/" target="_blank" class="m-cta">🚀 Visit Copilot Acceleration Team Hub <span>↗ microsoft.github.io/cat/</span></a>
+</div>`,
+
+'powercat': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F0FAFB">⚡</div>
+    <div>
+      <div class="modal-title">Power CAT — Tools &amp; Programs</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/powercat/" target="_blank">microsoft.github.io/powercat/ ↗</a></div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">🔧 Core Toolkits</div>
+    <div class="m-item"><div class="m-item-icon">🛠️</div><div class="m-item-body"><div class="m-item-title">Power CAT Tools</div><div class="m-item-desc">AI-enhanced development experience for Power Platform — code reviews, AI-generated documentation, solution risk evaluation, and more. Built for enterprise developers.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Explore Tools →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎨</div><div class="m-item-body"><div class="m-item-title">Creator Kit</div><div class="m-item-desc">24+ Fluent UI controls and templates for Power Apps — create consistent, beautiful, and accessible custom business applications aligned with Microsoft design standards.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Get Creator Kit →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏛️</div><div class="m-item-body"><div class="m-item-title">CoE Starter Kit</div><div class="m-item-desc">Centre of Excellence templates for adopting, maintaining, and supporting Power Platform at enterprise scale. Governance dashboards, inventory management, and adoption tracking.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Get CoE Kit →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Automation Kit</div><div class="m-item-desc">Manage, govern, and scale Power Automate adoption with industry best practices — ROI tracking, process catalogue, and CoE-aligned governance framework.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Get Automation Kit →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">🎓 Programs &amp; Events</div>
+    <div class="m-item"><div class="m-item-icon">📡</div><div class="m-item-body"><div class="m-item-title">CAT AI Webinars</div><div class="m-item-desc">Interactive virtual sessions for adopting Copilot and agents — run by the CAT team with live demos, Q&A, and partner case studies.</div><a href="https://microsoft.github.io/powercat/programs/ai-webinar.html" target="_blank" class="m-item-link">View Programme →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">⚔️</div><div class="m-item-body"><div class="m-item-title">Architecture Boot Camps</div><div class="m-item-desc">Intensive workshops for enterprise-scale solutions — covering advanced architecture patterns, governance, and deployment for Copilot Studio and Power Platform.</div><a href="https://microsoft.github.io/powercat/programs/architecture-bootcamp.html" target="_blank" class="m-item-link">View Programme →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏆</div><div class="m-item-body"><div class="m-item-title">Agent Build-A-Thon Hackathon</div><div class="m-item-desc">Virtual and in-person hackathons for building production-quality agents with Copilot Studio. Teams compete, learn, and deliver real agent solutions in a day.</div><a href="https://microsoft.github.io/powercat/programs/agent-hackathon.html" target="_blank" class="m-item-link">View Programme →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🚀</div><div class="m-item-body"><div class="m-item-title">Kickstarter Workshops</div><div class="m-item-desc">Define your AI vision and identify high-value agent use cases. Structured workshops to align business stakeholders and technical teams on AI strategy.</div><a href="https://kickstarter.powerappsportals.com/Available-Events/?workshopid=CS" target="_blank" class="m-item-link">Find Events →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/powercat/" target="_blank" class="m-cta">⚡ Open Power CAT Hub <span>↗ microsoft.github.io/powercat/</span></a>
+</div>`,
+
+'copilot-studio-gov': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#FFF4EC">🛡️</div>
+    <div>
+      <div class="modal-title">Copilot Studio — Security &amp; Governance</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/agent-resources/copilot-studio/" target="_blank">microsoft.github.io/agent-resources/copilot-studio/ ↗</a></div>
+    </div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">14+</div><div class="m-stat-l">Documentation Links</div></div>
+    <div class="m-stat"><div class="m-stat-n">6</div><div class="m-stat-l">Official Blog Posts</div></div>
+    <div class="m-stat"><div class="m-stat-n">4</div><div class="m-stat-l">Conference Sessions</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">📋 Core Documentation</div>
+    <div class="m-item"><div class="m-item-icon">🔒</div><div class="m-item-body"><div class="m-item-title">Security and Governance Overview</div><div class="m-item-desc">Top-level reference for all admin controls, DLP, data residency, and compliance certifications in Copilot Studio.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/security-and-governance" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧱</div><div class="m-item-body"><div class="m-item-title">Zoned Governance Strategy</div><div class="m-item-desc">Risk segmentation across citizen, partnered, and professional dev zones. Implement structured governance that scales without blocking productivity.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/sec-gov-phase2" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🚫</div><div class="m-item-body"><div class="m-item-title">Configure DLP Policies for Agents</div><div class="m-item-desc">Enforcement modes, connector governance, and troubleshooting guide for Data Loss Prevention policies in Copilot Studio environments.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/admin-data-loss-prevention" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Agent Inventory (Tenant-Wide)</div><div class="m-item-desc">Discover all Copilot Studio agents across your tenant — auth mode, publish status, usage metadata. Essential for enterprise governance and audit.</div><a href="https://learn.microsoft.com/power-platform/admin/tenant-wide-agent-inventory" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📝</div><div class="m-item-body"><div class="m-item-title">Audit Logs (Microsoft Purview)</div><div class="m-item-desc">Enable and query Purview audit logs for admin, maker, and user activities across all Copilot Studio agents.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/admin-logging-copilot-studio" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔄</div><div class="m-item-body"><div class="m-item-title">ALM Strategy</div><div class="m-item-desc">Application Lifecycle Management — dev/test/prod environments, Azure DevOps, GitHub Actions, and Power Platform Pipelines for governed agent deployment.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/alm" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📈</div><div class="m-item-body"><div class="m-item-title">Security &amp; Governance Maturity Model</div><div class="m-item-desc">Assess and advance your governance posture from initial to optimized. Structured five-level framework with concrete steps at each stage.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/maturity-model-security-governance" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">📣 Build &amp; Ignite 2025 Sessions</div>
+    <div class="m-item"><div class="m-item-icon">🎤</div><div class="m-item-body"><div class="m-item-title">BRK159 — Secure and Govern Enterprise-Scale Agents</div><div class="m-item-desc">Build 2025 session on governing agents at enterprise scale with Copilot Studio.</div><a href="https://build.microsoft.com/sessions/BRK159" target="_blank" class="m-item-link">Watch Session →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎤</div><div class="m-item-body"><div class="m-item-title">BRK293 — From Oversharing to Oversight: Managing AI Risks</div><div class="m-item-desc">Ignite 2025 — managing risks, data access, and compliance in the AI era.</div><a href="https://ignite.microsoft.com/sessions/BRK293" target="_blank" class="m-item-link">Watch Session →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">📄 Key Whitepapers</div>
+    <div class="m-item"><div class="m-item-icon">📄</div><div class="m-item-body"><div class="m-item-title">Agent Governance Whitepaper</div><div class="m-item-desc">Comprehensive guidance on agent lifecycle, compliance, data security, and responsible AI governance for enterprise deployments.</div><a href="https://adoption.microsoft.com/files/copilot-studio/Agent-governance-whitepaper.pdf" target="_blank" class="m-item-link">Download PDF →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/copilot-studio/" target="_blank" class="m-cta">🛡️ Open Copilot Studio Governance Resources <span>↗ agent-resources/copilot-studio/</span></a>
+</div>`,
+
+'mcs-resources': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF9EE">📚</div>
+    <div>
+      <div class="modal-title">Copilot Studio Resources Guide</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/mcscatblog/resources/" target="_blank">microsoft.github.io/mcscatblog/resources/ ↗</a></div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">📖 Essential Documentation</div>
+    <div class="m-item"><div class="m-item-icon">🤔</div><div class="m-item-body"><div class="m-item-title">What is Copilot Studio?</div><div class="m-item-desc">Official introduction — capabilities, use cases, licensing, and how it fits within the Microsoft AI platform.</div><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/fundamentals-what-is-copilot-studio" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">Guidance Documentation</div><div class="m-item-desc">Best practices from the CAT team that works with enterprise customers — architecture patterns, governance models, and deployment guidance.</div><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">Implementation Guide (PowerPoint)</div><div class="m-item-desc">CAT's comprehensive end-to-end blueprint for planning, architecting, and deploying Copilot Studio at enterprise scale. Download and use for project planning.</div><a href="https://aka.ms/CopilotStudioImplementationGuide" target="_blank" class="m-item-link">Download Guide →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧠</div><div class="m-item-body"><div class="m-item-title">Generative Orchestration Guide</div><div class="m-item-desc">Guide to configuring high-quality agent instructions — prompt design, topic routing, and generative AI orchestration best practices.</div><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-orchestration" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Agent Evaluation Guide</div><div class="m-item-desc">How to evaluate AI agents — quality metrics, evaluation setup, and the built-in agent evaluation framework in Copilot Studio.</div><a href="https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/how-to-evaluate-ai-agents/" target="_blank" class="m-item-link">Read Blog →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">🎓 Training &amp; Certifications</div>
+    <div class="m-item"><div class="m-item-icon">🏅</div><div class="m-item-body"><div class="m-item-title">Applied Skills: Create Agents in Copilot Studio</div><div class="m-item-desc">Official Microsoft credential for creating agents — scenario-based assessment, no multiple choice. Demonstrates real-world skills.</div><a href="https://learn.microsoft.com/en-us/credentials/applied-skills/create-agents-in-microsoft-copilot-studio/" target="_blank" class="m-item-link">View Credential →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎓</div><div class="m-item-body"><div class="m-item-title">Agent Academy</div><div class="m-item-desc">Structured skill-building path from fundamentals to advanced agent design. Self-paced, modular, and aligned to real-world scenarios.</div><a href="https://microsoft.github.io/agent-academy/" target="_blank" class="m-item-link">Start Academy →</a></div></div>
+  </div>
+  <div class="m-section">
+    <div class="m-section-title">🔧 Developer Tools &amp; SDKs</div>
+    <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">CAT Copilot Studio Kit</div><div class="m-item-desc">Batch testing, compliance tools, and prompt optimisation. Download from Microsoft Marketplace. Essential for enterprise testing and governance.</div><a href="https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit" target="_blank" class="m-item-link">GitHub →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">VS Code Extension for Copilot Studio</div><div class="m-item-desc">Edit agents directly in VS Code with version control integration. Full topic editor, entity management, and source control support.</div><a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/visual-studio-code-extension-install-configure" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📦</div><div class="m-item-body"><div class="m-item-title">M365 Agents SDK</div><div class="m-item-desc">Build custom agents in C#, JavaScript, and Python. Open-source SDK for building enterprise-grade agents that integrate with M365 Copilot.</div><a href="https://github.com/microsoft/agents" target="_blank" class="m-item-link">GitHub →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/mcscatblog/resources/" target="_blank" class="m-cta">📚 Open Full Resource Guide <span>↗ mcscatblog/resources/</span></a>
+</div>`,
+
+'mcs-blog': `
+<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#FEF0F9">✍️</div>
+    <div>
+      <div class="modal-title">MCS CAT Engineering Blog</div>
+      <div class="modal-url"><a href="https://microsoft.github.io/mcscatblog/" target="_blank">microsoft.github.io/mcscatblog/ ↗</a></div>
+    </div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section">
+    <div class="m-section-title">📰 Latest Posts (April 2026)</div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Apr 7, 2026</div><div class="m-blog-title">From DEV to PROD: Auto-Install and Pinning for Copilot Studio Agents in Teams</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Master the three deployment paths for Copilot Studio agents in Teams. Customise manifests for DEV/TEST environments and leverage Setup Policies for automated production rollouts.</div><div class="m-blog-tags"><span class="m-blog-tag">Teams</span><span class="m-blog-tag">Deployment</span><span class="m-blog-tag">DevOps</span></div><a href="https://microsoft.github.io/mcscatblog/posts/copilot-studio-teams-deployment/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Apr 7, 2026</div><div class="m-blog-title">Deploying Copilot Studio Agents in Teams — 8 Production Patterns</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Eight production patterns for deploying agents to Teams and M365 Copilot — reinstalls, context management, error handling, and self-service troubleshooting with diagnostic cards.</div><div class="m-blog-tags"><span class="m-blog-tag">Teams</span><span class="m-blog-tag">Patterns</span><span class="m-blog-tag">Production</span></div><a href="https://microsoft.github.io/mcscatblog/posts/copilot-studio-teams-agent-patterns/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Mar 29, 2026</div><div class="m-blog-title">Closing the Loop: Automated Agent Improvement with Publish and Test</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Automated edit-push-publish-test loop using the Copilot Studio plugin. Trial run on a D&D rules agent shows progression from blank instructions to 60% pass rate in 7 iterations.</div><div class="m-blog-tags"><span class="m-blog-tag">Testing</span><span class="m-blog-tag">Automation</span><span class="m-blog-tag">Evals</span></div><a href="https://microsoft.github.io/mcscatblog/posts/agentic-improvement-loop/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Mar 27, 2026</div><div class="m-blog-title">Dynamic MCP Routing in Copilot Studio: One Connector, Many Endpoints</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Route a single Copilot Studio connector to multiple MCP endpoints using a catalog service, dynamic Swagger dropdowns, and C# URL rewriting.</div><div class="m-blog-tags"><span class="m-blog-tag">MCP</span><span class="m-blog-tag">Routing</span><span class="m-blog-tag">Advanced</span></div><a href="https://microsoft.github.io/mcscatblog/posts/dynamic-mcp-routing-copilot-studio/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Mar 20, 2026</div><div class="m-blog-title">Structured Data with Zero User Auth: Dataverse searchQuery in Copilot Studio</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Build fuzzy, ranked search over Dataverse structured data with zero user sign-in. Step-by-step guide from indexing to working agent with OData filtering and pagination.</div><div class="m-blog-tags"><span class="m-blog-tag">Dataverse</span><span class="m-blog-tag">Search</span><span class="m-blog-tag">Authentication</span></div><a href="https://microsoft.github.io/mcscatblog/posts/dataverse-search-in-copilot-studio-unauthenticated-structured-data/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+    <div class="m-blog-card" style="margin-bottom:10px"><div class="m-blog-date">Mar 10, 2026</div><div class="m-blog-title">Skills for Copilot Studio: Build Agents from YAML Code — up to 20x Faster</div><div style="font-size:.78rem;color:#555;margin:4px 0 6px">Open-source plugin for Claude Code and GitHub Copilot that lets you author, test, and troubleshoot Copilot Studio agents directly from your terminal.</div><div class="m-blog-tags"><span class="m-blog-tag">Open Source</span><span class="m-blog-tag">GitHub Copilot</span><span class="m-blog-tag">CLI</span></div><a href="https://microsoft.github.io/mcscatblog/posts/skills-for-copilot-studio/" target="_blank" class="m-item-link" style="margin-top:6px">Read Post →</a></div>
+  </div>
+  <a href="https://microsoft.github.io/mcscatblog/" target="_blank" class="m-cta">✍️ Read All CAT Engineering Blog Posts <span>↗ microsoft.github.io/mcscatblog/</span></a>
+</div>`
+
+};
+
+function openModal(key) {
+  // inject new modals dynamically
+  const dynamic = {
+
+'all-hubs': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#EFF6FF">🌐</div>
+    <div><div class="modal-title">All 7 Resource Hubs</div><div class="modal-url">Click any hub to explore it directly</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">📦 Complete Hub Directory</div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('mcs-labs'),150)"><div class="m-item-icon">🧪</div><div class="m-item-body"><div class="m-item-title">Microsoft Copilot Studio Labs</div><div class="m-item-desc">50+ hands-on labs across 5 workshop formats — Quick Start, Business User, Autonomous AI, Developer, Architecture Bootcamp.</div><a href="https://microsoft.github.io/mcs-labs/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent-resources'),150)"><div class="m-item-icon">🌐</div><div class="m-item-body"><div class="m-item-title">Microsoft Agent Resources</div><div class="m-item-desc">The master hub — M365 Copilot, Copilot Studio, Azure AI Foundry, Agent Developer SDKs, Agent 365 and Platform Advisor.</div><a href="https://microsoft.github.io/agent-resources/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('copilot-studio-gov'),150)"><div class="m-item-icon">🛡️</div><div class="m-item-body"><div class="m-item-title">Copilot Studio — Security &amp; Governance</div><div class="m-item-desc">14+ doc links covering DLP, audit logs, tenant inventory, ALM, maturity model, Purview integration and Build/Ignite sessions.</div><a href="https://microsoft.github.io/agent-resources/copilot-studio/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('mcs-resources'),150)"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">Copilot Studio Resources Guide (CAT)</div><div class="m-item-desc">CAT's curated guide — docs, training, tools, SDKs, certifications, community and customer evidence resources.</div><a href="https://microsoft.github.io/mcscatblog/resources/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('mcs-blog'),150)"><div class="m-item-icon">✍️</div><div class="m-item-body"><div class="m-item-title">MCS CAT Engineering Blog</div><div class="m-item-desc">Weekly deep-dive technical posts — Teams deployment, MCP routing, Dataverse, testing loops, and autonomous agents.</div><a href="https://microsoft.github.io/mcscatblog/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('cat'),150)"><div class="m-item-icon">🚀</div><div class="m-item-body"><div class="m-item-title">Copilot Acceleration Team (CAT)</div><div class="m-item-desc">Microsoft's team for accelerating Copilot and Copilot Studio adoption — tools, programs and enterprise guidance from real-world deployments.</div><a href="https://microsoft.github.io/cat/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('powercat'),150)"><div class="m-item-icon">⚡</div><div class="m-item-body"><div class="m-item-title">Power CAT Tools &amp; Programs</div><div class="m-item-desc">Creator Kit, CoE Starter Kit, Automation Kit, AI Webinars, Architecture Bootcamps and Agent Hackathons for Power Platform.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent365'),150)"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Agent 365 — Agent Workforce Control Plane</div><div class="m-item-desc">Central hub for managing all AI agents in M365 — SDK, governance resources, RSAC 2026 Entra news, and 8 MVP/community blog posts. Updated April 2026.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent-developer'),150)"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Agent Developer Resources Hub</div><div class="m-item-desc">M365 Agents SDK, Microsoft Agent Framework, Semantic Kernel, MCP, A2A protocol, AI Agents for Beginners, Build/Ignite 2025 sessions, samples, and multi-agent reference architecture.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+  </div>
+</div>`,
+
+'all-docs': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#EFF9EE">📖</div>
+    <div><div class="modal-title">40+ Documentation Links</div><div class="modal-url">Official Microsoft Learn, whitepapers, and guidance docs</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🏗️ Architecture &amp; Design</div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">Copilot Studio Guidance Docs</div><div class="m-item-desc">Best practices from the CAT team working with enterprise customers — architecture patterns, governance models, deployment guidance.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">Power Platform Architecture Center</div><div class="m-item-desc">Reference architectures and guidance for enterprise Power Platform solutions.</div><a href="https://learn.microsoft.com/power-platform/architecture/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">CAT Implementation Guide (PPT)</div><div class="m-item-desc">End-to-end blueprint for planning, architecting, and deploying Copilot Studio at enterprise scale. Downloadable PowerPoint.</div><a href="https://aka.ms/CopilotStudioImplementationGuide" target="_blank" class="m-item-link">Download →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧠</div><div class="m-item-body"><div class="m-item-title">Generative Orchestration Guide</div><div class="m-item-desc">How to configure high-quality instructions — prompt design, topic routing, and generative AI orchestration best practices.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/generative-orchestration" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🛡️ Security &amp; Governance</div>
+    <div class="m-item"><div class="m-item-icon">🔒</div><div class="m-item-body"><div class="m-item-title">Security and Governance Overview</div><div class="m-item-desc">Top-level reference for all admin controls, DLP, data residency, and compliance certifications.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/security-and-governance" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🚫</div><div class="m-item-body"><div class="m-item-title">Configure DLP Policies</div><div class="m-item-desc">Enforcement modes, connector governance, and troubleshooting for Data Loss Prevention policies.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/admin-data-loss-prevention" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Tenant-Wide Agent Inventory</div><div class="m-item-desc">Discover all Copilot Studio agents across your tenant — auth mode, publish status, and usage metadata.</div><a href="https://learn.microsoft.com/power-platform/admin/tenant-wide-agent-inventory" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📝</div><div class="m-item-body"><div class="m-item-title">Audit Logs via Microsoft Purview</div><div class="m-item-desc">Enable and query Purview audit logs for admin, maker, and user activities across all agents.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/admin-logging-copilot-studio" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📄</div><div class="m-item-body"><div class="m-item-title">Agent Governance Whitepaper (PDF)</div><div class="m-item-desc">Comprehensive guidance on agent lifecycle, compliance, data security, and responsible AI governance.</div><a href="https://adoption.microsoft.com/files/copilot-studio/Agent-governance-whitepaper.pdf" target="_blank" class="m-item-link">Download PDF →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📈</div><div class="m-item-body"><div class="m-item-title">Security &amp; Governance Maturity Model</div><div class="m-item-desc">Five-level maturity model — assess and advance your governance posture from initial to optimised.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/maturity-model-security-governance" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🔄 ALM, Deployment &amp; Operations</div>
+    <div class="m-item"><div class="m-item-icon">🔄</div><div class="m-item-body"><div class="m-item-title">ALM Strategy for Agents</div><div class="m-item-desc">Dev/test/prod environments, Azure DevOps, GitHub Actions, and Power Platform Pipelines for governed agent deployment.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/alm" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔗</div><div class="m-item-body"><div class="m-item-title">Governance Models — Architecture Guidance</div><div class="m-item-desc">Detailed governance architecture guidance for enterprise Copilot Studio deployments.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/architecture/gov-models" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💡</div><div class="m-item-body"><div class="m-item-title">Control How Agents Are Shared</div><div class="m-item-desc">Restrict sharing permissions and manage editor/viewer assignment from the Power Platform Admin Center.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/admin-sharing-controls-limits" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📊 Analytics, Prompting &amp; Evaluation</div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Agent Evaluation — How to Evaluate AI Agents</div><div class="m-item-desc">Quality metrics, evaluation frameworks, and the built-in Copilot Studio evaluation capability.</div><a href="https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/how-to-evaluate-ai-agents/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🖊️</div><div class="m-item-body"><div class="m-item-title">Prompting Guide</div><div class="m-item-desc">Comprehensive prompt engineering best practices for Copilot Studio — custom prompts, instructions, and slot filling.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/create-custom-prompt" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📈</div><div class="m-item-body"><div class="m-item-title">Monitor Operations, Compliance &amp; Capacity</div><div class="m-item-desc">Reporting and alerting using PPAC, Purview, and Azure Sentinel for enterprise agent monitoring.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/sec-gov-phase5" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+</div>`,
+
+'m365-copilot': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#EFF6FF">🏢</div>
+    <div><div class="modal-title">M365 Copilot Resources</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank">microsoft.github.io/agent-resources/m365-copilot/ ↗</a></div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🏢 Adopt &amp; Deploy M365 Copilot</div>
+    <div class="m-item"><div class="m-item-icon">🚀</div><div class="m-item-body"><div class="m-item-title">M365 Copilot Adoption Hub</div><div class="m-item-desc">Official adoption resources, readiness guides, change management templates, and usage reports for rolling out M365 Copilot across your organisation.</div><a href="https://adoption.microsoft.com/en-us/copilot/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Copilot Admin Center (M365)</div><div class="m-item-desc">Manage Copilot settings, usage policies, plugin permissions, and tenant-wide configuration from the M365 Admin Center.</div><a href="https://learn.microsoft.com/microsoft-365/admin/copilot/microsoft-365-copilot-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Extend M365 Copilot — Plugins &amp; Connectors</div><div class="m-item-desc">Build declarative agents, API plugins, message extensions, and Graph connectors that extend Copilot with your own data and actions.</div><a href="https://learn.microsoft.com/microsoft-365-copilot/extensibility/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Copilot Usage Analytics</div><div class="m-item-desc">Track adoption, usage patterns, and value metrics for M365 Copilot across your organisation using the M365 Admin usage reports.</div><a href="https://learn.microsoft.com/microsoft-365/admin/activity-reports/microsoft365-copilot-usage" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🛡️</div><div class="m-item-body"><div class="m-item-title">Copilot Control System</div><div class="m-item-desc">Three-pillar framework: security and governance, management controls, measurement and reporting — from Ignite 2025.</div><a href="https://techcommunity.microsoft.com/blog/microsoft365copilotblog/ignite-2025-copilot-control-system-and-related-updates-for-it-and-security-teams/4469768" target="_blank" class="m-item-link">Read Blog →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧭</div><div class="m-item-body"><div class="m-item-title">Agent Platform Advisor</div><div class="m-item-desc">Not sure whether to build in M365 Copilot, Copilot Studio, or Azure AI Foundry? Answer a few questions for a personalised recommendation.</div><a href="https://microsoft.github.io/AgentPlatformAdvisor/" target="_blank" class="m-item-link">Launch Advisor →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-cta">🏢 Open M365 Copilot Resources Hub <span>↗ agent-resources/m365-copilot/</span></a>
+</div>`,
+
+'azure-foundry': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#FFF4EC">☁️</div>
+    <div><div class="modal-title">Azure AI Foundry Resources</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/microsoft-foundry/" target="_blank">microsoft.github.io/agent-resources/microsoft-foundry/ ↗</a></div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">☁️ Build &amp; Deploy AI with Azure AI Foundry</div>
+    <div class="m-item"><div class="m-item-icon">🏭</div><div class="m-item-body"><div class="m-item-title">Azure AI Foundry Portal</div><div class="m-item-desc">The unified platform for building, evaluating, and deploying AI models and agents at enterprise scale. Includes model catalogue, prompt flows, and deployment management.</div><a href="https://ai.azure.com" target="_blank" class="m-item-link">Open Portal →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">Azure AI Foundry Documentation</div><div class="m-item-desc">Official documentation for Azure AI Foundry — getting started, model deployments, SDKs, and enterprise configuration.</div><a href="https://learn.microsoft.com/azure/ai-foundry/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧪</div><div class="m-item-body"><div class="m-item-title">AI Evaluations (Evals)</div><div class="m-item-desc">Systematic evaluation of AI model outputs — quality, safety, groundedness, and performance benchmarking. Build evaluation pipelines for production AI systems.</div><a href="https://learn.microsoft.com/azure/ai-foundry/concepts/evaluation-approach-gen-ai" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔗</div><div class="m-item-body"><div class="m-item-title">Azure AI Foundry &amp; Copilot Studio Integration</div><div class="m-item-desc">Use Azure AI Foundry models and knowledge bases as the AI backbone for Copilot Studio agents — hybrid architecture pattern.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/nlu-generative-ai-azure-openai" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Build AI Agents with Azure AI Foundry</div><div class="m-item-desc">Design and deploy autonomous agents using Azure AI Agent Service — with tool calling, memory, and multi-agent orchestration.</div><a href="https://learn.microsoft.com/azure/ai-foundry/agents/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Copilot Developer Camp — Azure AI Path</div><div class="m-item-desc">Hands-on labs for building custom agents with Azure AI Foundry — part of the Copilot Developer Camp series.</div><a href="https://microsoft.github.io/copilot-camp/pages/custom-engine/" target="_blank" class="m-item-link">Start Labs →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/microsoft-foundry/" target="_blank" class="m-cta">☁️ Open Azure AI Foundry Resources Hub <span>↗ agent-resources/microsoft-foundry/</span></a>
+</div>`,
+
+'developer-tools': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#F5F0FB">🔧</div>
+    <div><div class="modal-title">Developer Tools &amp; SDKs</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank">microsoft.github.io/agent-resources/develop-agents/ ↗</a></div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🧰 Tools &amp; Extensions</div>
+    <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">CAT Copilot Studio Kit (Power-CAT)</div><div class="m-item-desc">Open-source toolkit for batch testing, compliance checks, and prompt optimisation. Download from Microsoft Marketplace. Essential for enterprise QA and governance workflows.</div><a href="https://github.com/microsoft/Power-CAT-Copilot-Studio-Kit" target="_blank" class="m-item-link">GitHub →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">VS Code Extension for Copilot Studio</div><div class="m-item-desc">Edit Copilot Studio agents directly in VS Code with full version control integration — topic editor, entity management, source control support.</div><a href="https://marketplace.visualstudio.com/items?itemName=ms-CopilotStudio.vscode-copilotstudio" target="_blank" class="m-item-link">Download Extension →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">GitHub Copilot CLI</div><div class="m-item-desc">AI-powered command-line assistant for developers — generate commands, explain code, and get shell suggestions without leaving the terminal.</div><a href="https://docs.github.com/copilot/using-github-copilot/using-github-copilot-in-the-command-line" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🖊️</div><div class="m-item-body"><div class="m-item-title">Skills for Copilot Studio Plugin</div><div class="m-item-desc">Open-source plugin for Claude Code and GitHub Copilot that lets you author, test, and troubleshoot Copilot Studio agents from your terminal — up to 20x faster.</div><a href="https://microsoft.github.io/mcscatblog/posts/skills-for-copilot-studio/" target="_blank" class="m-item-link">Read Post →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">⚙️</div><div class="m-item-body"><div class="m-item-title">Power Platform CLI</div><div class="m-item-desc">Command-line tools for automating Power Platform and Copilot Studio deployments — solution import/export, environment management, ALM pipelines.</div><a href="https://learn.microsoft.com/power-platform/developer/cli/introduction" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📦 SDKs &amp; Frameworks</div>
+    <div class="m-item"><div class="m-item-icon">📦</div><div class="m-item-body"><div class="m-item-title">M365 Agents SDK</div><div class="m-item-desc">Build custom agents in C#, JavaScript, and Python. Open-source SDK for enterprise-grade agents integrating with M365 Copilot.</div><a href="https://github.com/microsoft/agents" target="_blank" class="m-item-link">GitHub →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Model Context Protocol (MCP)</div><div class="m-item-desc">Open standard protocol for connecting AI models to external tools and data sources. Enables dynamic MCP routing in Copilot Studio.</div><a href="https://microsoft.github.io/mcscatblog/posts/dynamic-mcp-routing-copilot-studio/" target="_blank" class="m-item-link">Read MCP Post →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📁</div><div class="m-item-body"><div class="m-item-title">CopilotStudioSamples (GitHub)</div><div class="m-item-desc">Official Microsoft repository of code samples, examples, and reference implementations for Copilot Studio.</div><a href="https://github.com/microsoft/CopilotStudioSamples" target="_blank" class="m-item-link">GitHub →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-cta">🔧 Open Agent Developer Resources Hub <span>↗ agent-resources/develop-agents/</span></a>
+</div>`,
+
+'analytics-evals': `
+<div class="modal-hero">
+  <div class="modal-h"><div class="modal-hicon" style="background:#F0FAFB">📊</div>
+    <div><div class="modal-title">Analytics &amp; AI Evaluations</div><div class="modal-url">Measuring, monitoring, and continuously improving AI agent quality</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">📊 Copilot Studio Analytics</div>
+    <div class="m-item"><div class="m-item-icon">📈</div><div class="m-item-body"><div class="m-item-title">Copilot Studio Built-In Analytics</div><div class="m-item-desc">Out-of-the-box dashboards showing session volume, escalation rates, resolution rates, CSAT, topic-level performance, and knowledge source coverage.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/analytics-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔬</div><div class="m-item-body"><div class="m-item-title">Agent Evaluation Setup Guide</div><div class="m-item-desc">Step-by-step guide to setting up automated agent evaluation — define test sets, configure evaluation criteria, and track quality over time.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/analytics-agent-evaluation-create" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📄</div><div class="m-item-body"><div class="m-item-title">How to Evaluate AI Agents (Blog)</div><div class="m-item-desc">CAT's comprehensive guide on evaluation methodology — what to measure, how to measure it, and how to act on results.</div><a href="https://www.microsoft.com/en-us/microsoft-copilot/blog/copilot-studio/how-to-evaluate-ai-agents/" target="_blank" class="m-item-link">Read Blog →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔄</div><div class="m-item-body"><div class="m-item-title">Automated Agent Improvement Loop</div><div class="m-item-desc">CAT's approach to automated edit-publish-test cycles — using the Copilot Studio plugin to iteratively improve agent quality with measurable progression.</div><a href="https://microsoft.github.io/mcscatblog/posts/agentic-improvement-loop/" target="_blank" class="m-item-link">Read Post →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🔍 Conversation Insights &amp; Debugging</div>
+    <div class="m-item"><div class="m-item-icon">🔍</div><div class="m-item-body"><div class="m-item-title">Open the Hood: Conversation Transcripts</div><div class="m-item-desc">How to extract, read, and understand Copilot Studio conversation transcripts — understand exactly what your agent is doing and why.</div><a href="https://microsoft.github.io/mcscatblog/posts/open-the-hood-copilot-studio-transcripts/" target="_blank" class="m-item-link">Read Post →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧠</div><div class="m-item-body"><div class="m-item-title">Chain-of-Thought &amp; Transcript on Demand</div><div class="m-item-desc">Advanced topic patterns to surface the orchestrator's chain-of-thought as it works, and pull full transcripts into variables at runtime.</div><a href="https://microsoft.github.io/mcscatblog/posts/power-of-topics-copilot-studio/" target="_blank" class="m-item-link">Read Post →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">☁️ Azure AI Foundry Evals</div>
+    <div class="m-item"><div class="m-item-icon">🧪</div><div class="m-item-body"><div class="m-item-title">Evaluation Approach for Generative AI</div><div class="m-item-desc">Azure AI Foundry's evaluation framework — groundedness, relevance, coherence, fluency, and custom evaluators for production AI systems.</div><a href="https://learn.microsoft.com/azure/ai-foundry/concepts/evaluation-approach-gen-ai" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏭</div><div class="m-item-body"><div class="m-item-title">Azure AI Foundry Evaluation Hub</div><div class="m-item-desc">Run, compare, and track evaluations for your AI models and agents directly from the Azure AI Foundry portal — with detailed quality scoring.</div><a href="https://learn.microsoft.com/azure/ai-foundry/how-to/evaluate-generative-ai-app" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📋 Governance Monitoring</div>
+    <div class="m-item"><div class="m-item-icon">🛡️</div><div class="m-item-body"><div class="m-item-title">Monitor Operations, Compliance &amp; Capacity</div><div class="m-item-desc">Enterprise monitoring using PPAC, Purview, and Azure Sentinel — reporting, alerting, and capacity management for large agent deployments.</div><a href="https://learn.microsoft.com/microsoft-copilot-studio/guidance/sec-gov-phase5" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏛️</div><div class="m-item-body"><div class="m-item-title">Copilot Hub in Power Platform Admin Center</div><div class="m-item-desc">Centralised view for tracking agent usage, managing policies, and scaling adoption across your organisation.</div><a href="https://learn.microsoft.com/power-platform/admin/copilot/copilot-hub" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+</div>`,
+
+  'agent365': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF6FF">🧩</div>
+    <div><div class="modal-title">Agent 365 Resources</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank">microsoft.github.io/agent-resources/agent365/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">8+</div><div class="m-stat-l">MVP Community Blogs</div></div>
+    <div class="m-stat"><div class="m-stat-n">April 2026</div><div class="m-stat-l">SDK Update</div></div>
+    <div class="m-stat"><div class="m-stat-n">RSAC 2026</div><div class="m-stat-l">Entra Security News</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🎬 Getting Started</div>
+    <div class="m-item"><div class="m-item-icon">▶️</div><div class="m-item-body"><div class="m-item-title">Agent 365 Introduction Video</div><div class="m-item-desc">Official intro video covering what Agent 365 is, how it integrates with Microsoft 365, and key agentic scenarios it enables.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Watch →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎥</div><div class="m-item-body"><div class="m-item-title">John Savill Overview — Agent 365 Deep Dive</div><div class="m-item-desc">John Savill's technical overview of Agent 365 — architecture, capabilities, and how it fits into the Microsoft 365 agentic platform story.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Watch →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📦</div><div class="m-item-body"><div class="m-item-title">Agent 365 SDK — April 2026 Update</div><div class="m-item-desc">Latest SDK release for building Agent 365 solutions — new APIs, samples, and developer tooling released April 2026.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🛡️ Security &amp; Identity</div>
+    <div class="m-item"><div class="m-item-icon">🔐</div><div class="m-item-body"><div class="m-item-title">RSAC 2026 — Microsoft Entra &amp; Agent 365 Security</div><div class="m-item-desc">Announcements from RSAC 2026 covering Microsoft Entra identity controls for agents, security posture management, and Agent 365 governance capabilities.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🌍 MVP Community Blogs (April 2026)</div>
+    <div class="m-item"><div class="m-item-icon">📝</div><div class="m-item-body"><div class="m-item-title">Jukka Niiranen — Agent 365 Analysis</div><div class="m-item-desc">In-depth community analysis from Jukka Niiranen on Agent 365 architecture patterns, limitations, and real-world implementation insights.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📝</div><div class="m-item-body"><div class="m-item-title">Rob Quickenden (×2), Simon Doy, Steve Corey &amp; More</div><div class="m-item-desc">Eight MVP community blog posts covering real-world deployments, partner case studies, and architectural observations from Corsica Tech, Devoteam, and IT PRO.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Read All →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💬</div><div class="m-item-body"><div class="m-item-title">Agent 365 Discussions Forum</div><div class="m-item-desc">Official GitHub Discussions forum for Agent 365 — ask questions, share patterns, and connect with the Agent 365 product and community teams.</div><a href="https://github.com/microsoft/agent-resources/discussions" target="_blank" class="m-item-link">Join Discussions →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-cta">🧩 Open Agent 365 Hub <span>↗ agent-resources/agent365/</span></a>
+</div>`,
+
+  'agent-developer': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F0FFF4">👨‍💻</div>
+    <div><div class="modal-title">Agent Developer Hub</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank">microsoft.github.io/agent-resources/develop-agents/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">30+</div><div class="m-stat-l">Developer Resources</div></div>
+    <div class="m-stat"><div class="m-stat-n">A2A</div><div class="m-stat-l">Protocol Support</div></div>
+    <div class="m-stat"><div class="m-stat-n">March 2026</div><div class="m-stat-l">Major Update</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">📚 Foundational Learning</div>
+    <div class="m-item"><div class="m-item-icon">🎓</div><div class="m-item-body"><div class="m-item-title">AI Agents for Beginners — Microsoft Course</div><div class="m-item-desc">18-lesson open-source course from Microsoft — agent design patterns, tool use, multi-agent systems, and production considerations. Free on GitHub.</div><a href="https://github.com/microsoft/ai-agents-for-beginners" target="_blank" class="m-item-link">Start Course →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔗</div><div class="m-item-body"><div class="m-item-title">A2A Protocol — Agent-to-Agent Communication</div><div class="m-item-desc">Google's open Agent-to-Agent (A2A) protocol — interoperable agent communication standard supported by Microsoft. Enables cross-platform agent orchestration.</div><a href="https://google.github.io/A2A/" target="_blank" class="m-item-link">Read Spec →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🏗️ Microsoft Agent Framework (MAF)</div>
+    <div class="m-item"><div class="m-item-icon">🧱</div><div class="m-item-body"><div class="m-item-title">Microsoft Agent Framework — Overview</div><div class="m-item-desc">MAF provides a unified programming model for building agents across Copilot Studio, Azure AI Foundry, and custom code — with built-in orchestration, memory, and tool calling.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">⚙️</div><div class="m-item-body"><div class="m-item-title">Semantic Kernel ↔ MAF Integration Blog</div><div class="m-item-desc">How Semantic Kernel and the Microsoft Agent Framework work together — orchestration patterns, plugin sharing, and when to use which framework.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🗺️</div><div class="m-item-body"><div class="m-item-title">Multi-Agent Reference Architecture</div><div class="m-item-desc">Production reference architecture for multi-agent systems — orchestrator patterns, sub-agent routing, state management, and failure handling at enterprise scale.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📂</div><div class="m-item-body"><div class="m-item-title">MAF Samples Repository</div><div class="m-item-desc">Official code samples for Microsoft Agent Framework — starter templates, integration patterns, and production-ready agent implementations.</div><a href="https://github.com/microsoft/multi-agent-reference-architecture" target="_blank" class="m-item-link">View Samples →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📱 M365 Agents SDK</div>
+    <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">M365 Agents SDK — Developer Docs</div><div class="m-item-desc">Build agents that surface in Teams, Outlook, and Microsoft 365 Copilot — adaptive cards, message extensions, proactive messaging, and SSO.</div><a href="https://learn.microsoft.com/microsoft-365/dev/agents/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🎤 Conference Sessions</div>
+    <div class="m-item"><div class="m-item-icon">🎬</div><div class="m-item-body"><div class="m-item-title">Build 2025 — Agent Development Playlist</div><div class="m-item-desc">Complete Build 2025 session playlist for agent developers — from fundamentals to advanced multi-agent patterns with live demos.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Watch Sessions →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔥</div><div class="m-item-body"><div class="m-item-title">Ignite 2025 — LAB513, LAB518 &amp; BRK319</div><div class="m-item-desc">Three Ignite 2025 sessions covering hands-on agent development labs and architecture breakout — recorded and available on demand.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Watch Sessions →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-cta">👨‍💻 Open Agent Developer Hub <span>↗ agent-resources/develop-agents/</span></a>
+</div>`,
+
+  'copilot-cowork': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F5F3FF">🤝</div>
+    <div><div class="modal-title">Copilot Cowork</div><div class="modal-url"><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank">microsoft.github.io/agent-resources/m365-copilot/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">New</div><div class="m-stat-l">April 2026</div></div>
+    <div class="m-stat"><div class="m-stat-n">4</div><div class="m-stat-l">Launch Announcements</div></div>
+    <div class="m-stat"><div class="m-stat-n">M365</div><div class="m-stat-l">Copilot Feature</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">📖 What is Copilot Cowork?</div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">Copilot Cowork — Overview Doc 1</div><div class="m-item-desc">Introduction to Copilot Cowork — Microsoft's new collaborative AI feature in M365 Copilot that enables real-time co-authoring and editing with Copilot alongside users.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">Copilot Cowork — Technical Deep Dive</div><div class="m-item-desc">Architecture and implementation details for Copilot Cowork — how the real-time collaboration model works under the hood in Microsoft 365 applications.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Read →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📣 Launch Announcements &amp; Demos</div>
+    <div class="m-item"><div class="m-item-icon">🎬</div><div class="m-item-body"><div class="m-item-title">Charles Lamanna Demo — Copilot Cowork Launch</div><div class="m-item-desc">Official launch demo from Charles Lamanna (CVP, M365 AI &amp; Copilot) demonstrating Copilot Cowork capabilities and the vision for human-AI collaboration in Microsoft 365.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Watch Demo →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📣</div><div class="m-item-body"><div class="m-item-title">3 Additional Launch Announcements</div><div class="m-item-desc">Four total launch announcements covering availability, roadmap, enterprise controls, and integration with existing M365 Copilot subscriptions.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Read All →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🌍 MVP Community Perspectives</div>
+    <div class="m-item"><div class="m-item-icon">📝</div><div class="m-item-body"><div class="m-item-title">MVP Blog Posts — Copilot Cowork (April 2026)</div><div class="m-item-desc">Four community MVP blog posts reviewing Copilot Cowork from real-world deployment perspectives — use cases, limitations, and tips from early adopters.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Read →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎥</div><div class="m-item-body"><div class="m-item-title">Video Walkthroughs (2 Videos)</div><div class="m-item-desc">Two hands-on video walkthroughs of Copilot Cowork showing the actual user experience in Word, Teams, and other M365 applications.</div><a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-item-link">Watch →</a></div></div>
+  </div>
+  <a href="https://microsoft.github.io/agent-resources/m365-copilot/" target="_blank" class="m-cta">🤝 Open Copilot Cowork Resources <span>↗ agent-resources/m365-copilot/</span></a>
+</div>`,
+
+  'd365-ce': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#FFF4EC">🤝</div>
+    <div><div class="modal-title">D365 Customer Engagement</div><div class="modal-url"><a href="https://learn.microsoft.com/dynamics365/" target="_blank">learn.microsoft.com/dynamics365/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">4</div><div class="m-stat-l">CE Workstreams</div></div>
+    <div class="m-stat"><div class="m-stat-n">4+</div><div class="m-stat-l">First-Party AI Agents</div></div>
+    <div class="m-stat"><div class="m-stat-n">FastTrack</div><div class="m-stat-l">Supported</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">💼 D365 Sales</div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Sales Documentation</div><div class="m-item-desc">Setup, configuration, forecasting, pipelines, lead management, sequences, and Sales Premium AI features — full official documentation hub.</div><a href="https://learn.microsoft.com/dynamics365/sales/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">First-Party AI Sales Agents</div><div class="m-item-desc">Sales Qualification Agent, Sales Close Agent, Sales Research Agent, and Data Enrichment Agent — Microsoft's first-party agentic scenarios built directly into D365 Sales Premium.</div><a href="https://learn.microsoft.com/dynamics365/sales/copilot-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎯</div><div class="m-item-body"><div class="m-item-title">Copilot for Sales (Viva Sales Features)</div><div class="m-item-desc">AI-powered selling — meeting summaries, email drafts, opportunity scoring, and CRM data enrichment from Outlook and Teams via Microsoft 365 Copilot for Sales.</div><a href="https://learn.microsoft.com/dynamics365/sales/enable-setup-copilot-sales" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🎧 D365 Customer Service &amp; Contact Center</div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Customer Service Documentation</div><div class="m-item-desc">Case management, knowledge base, unified routing, SLAs, omnichannel, and Agent Assist with Copilot — enterprise customer service platform documentation.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📞</div><div class="m-item-body"><div class="m-item-title">D365 Contact Center (CCaaS)</div><div class="m-item-desc">Microsoft's cloud contact centre — voice, digital channels, IVR, workforce management (WFM), real-time transcription, sentiment analysis, and Copilot agent assistance.</div><a href="https://learn.microsoft.com/dynamics365/contact-center/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">Unified Routing &amp; Intelligent Routing</div><div class="m-item-desc">AI-based work classification and routing — skills-based, capacity-based, and sentiment-based routing across voice, chat, email, and social channels.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/overview-unified-routing" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📊 Customer Insights (Data &amp; Journeys)</div>
+    <div class="m-item"><div class="m-item-icon">🧩</div><div class="m-item-body"><div class="m-item-title">Customer Insights — Data (CDP)</div><div class="m-item-desc">Unified customer profiles, profile unification, data sources, measures, segmentation, and predictive intelligence — the enterprise Customer Data Platform.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/data/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🗺️</div><div class="m-item-body"><div class="m-item-title">Customer Insights — Journeys (Real-Time Marketing)</div><div class="m-item-desc">Real-time customer journeys, event management, consent management, AI-optimised sending, and segment-based campaigns across email, SMS, push, and forms.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/journeys/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🚀 FastTrack &amp; Implementation</div>
+    <div class="m-item"><div class="m-item-icon">🏃</div><div class="m-item-body"><div class="m-item-title">FastTrack for Dynamics 365</div><div class="m-item-desc">Microsoft's Success by Design framework — solution blueprints, go-live readiness, and proactive architectural guidance for D365 CE implementations.</div><a href="https://learn.microsoft.com/dynamics365/fasttrack/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">D365 Implementation Guidance</div><div class="m-item-desc">End-to-end implementation guidance covering architecture, data migration, integration design, testing strategy, and go-live planning for all CE workloads.</div><a href="https://learn.microsoft.com/dynamics365/guidance/" target="_blank" class="m-item-link">Read Guide →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/dynamics365/" target="_blank" class="m-cta">🤝 Open D365 Customer Engagement Docs <span>↗ learn.microsoft.com/dynamics365/</span></a>
+</div>`,
+
+  'd365-fo': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F0FAFB">⚙️</div>
+    <div><div class="modal-title">D365 Finance &amp; Operations</div><div class="modal-url"><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/" target="_blank">learn.microsoft.com/dynamics365/fin-ops-core/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">4</div><div class="m-stat-l">F&amp;O Workstreams</div></div>
+    <div class="m-stat"><div class="m-stat-n">LCS</div><div class="m-stat-l">Lifecycle Services</div></div>
+    <div class="m-stat"><div class="m-stat-n">FastTrack</div><div class="m-stat-l">Supported</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">💰 D365 Finance</div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Finance Documentation</div><div class="m-item-desc">General ledger, accounts payable/receivable, budgeting, fixed assets, cash &amp; bank management, financial reporting, and AI-powered finance insights.</div><a href="https://learn.microsoft.com/dynamics365/finance/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Finance Insights &amp; Copilot Features</div><div class="m-item-desc">Cash flow forecasting, invoice predictions, customer payment insights, and Copilot for Finance — AI embedded directly into D365 Finance workflows.</div><a href="https://learn.microsoft.com/dynamics365/finance/finance-insights/finance-insights-home-page" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🏭 Supply Chain, Project Operations &amp; HR</div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Supply Chain Management</div><div class="m-item-desc">Inventory, warehousing, procurement, production, master planning, transportation, and Copilot-assisted demand forecasting and planning.</div><a href="https://learn.microsoft.com/dynamics365/supply-chain/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">D365 Project Operations</div><div class="m-item-desc">Project-based service delivery — project planning, resource management, time &amp; expense, billing, and Copilot features for project managers.</div><a href="https://learn.microsoft.com/dynamics365/project-operations/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">👥</div><div class="m-item-body"><div class="m-item-title">D365 Human Resources</div><div class="m-item-desc">Employee lifecycle, leave &amp; absence, benefits management, compensation, performance management, and HR Copilot features for streamlined people management.</div><a href="https://learn.microsoft.com/dynamics365/human-resources/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🔧 Implementation &amp; Platform</div>
+    <div class="m-item"><div class="m-item-icon">⚙️</div><div class="m-item-body"><div class="m-item-title">Fin &amp; Ops Core Platform</div><div class="m-item-desc">Environment architecture, deployment, data management, integrations, extensibility (X++), performance tooling, and LCS configuration for enterprise F&amp;O.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🌐</div><div class="m-item-body"><div class="m-item-title">Lifecycle Services (LCS)</div><div class="m-item-desc">Cloud-hosted project collaboration, environment management, code upgrades, business process modelling, and go-live readiness assessments for F&amp;O.</div><a href="https://lcs.dynamics.com" target="_blank" class="m-item-link">Open LCS →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏃</div><div class="m-item-body"><div class="m-item-title">FastTrack for Finance &amp; Operations</div><div class="m-item-desc">Success by Design for F&amp;O — fit gap analysis, solution design review, data migration strategy, performance benchmarking, and pre-go-live readiness assessments.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/fin-ops/imp-lifecycle/fasttrack-dynamics-365-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">D365 Implementation Guidance (F&amp;O)</div><div class="m-item-desc">Architecture patterns, integration design, data migration, upgrade paths (AX→D365), testing strategy, and go-live checklists for F&amp;O programmes.</div><a href="https://learn.microsoft.com/dynamics365/guidance/" target="_blank" class="m-item-link">Read Guide →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/dynamics365/fin-ops-core/" target="_blank" class="m-cta">⚙️ Open D365 Finance &amp; Operations Docs <span>↗ learn.microsoft.com/dynamics365/fin-ops-core/</span></a>
+</div>`,
+
+  'power-platform': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#F5F0FB">⚡</div>
+    <div><div class="modal-title">Power Platform</div><div class="modal-url"><a href="https://learn.microsoft.com/power-platform/" target="_blank">learn.microsoft.com/power-platform/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">5</div><div class="m-stat-l">Core Products</div></div>
+    <div class="m-stat"><div class="m-stat-n">CoE Kit</div><div class="m-stat-l">+ ALM DevOps</div></div>
+    <div class="m-stat"><div class="m-stat-n">Well-Arch</div><div class="m-stat-l">Framework</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">⚡ Core Products</div>
+    <div class="m-item"><div class="m-item-icon">📱</div><div class="m-item-body"><div class="m-item-title">Power Apps</div><div class="m-item-desc">Canvas apps, model-driven apps, and mobile apps — low-code app development with Dataverse, connectors, and AI Builder. Includes Power Apps portals (Power Pages).</div><a href="https://learn.microsoft.com/power-apps/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔄</div><div class="m-item-body"><div class="m-item-title">Power Automate</div><div class="m-item-desc">Cloud flows, desktop flows (RPA), process mining, AI Builder, and approval workflows — automate business processes across 1000+ connectors and services.</div><a href="https://learn.microsoft.com/power-automate/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🌐</div><div class="m-item-body"><div class="m-item-title">Power Pages</div><div class="m-item-desc">Low-code external-facing websites and portals — Dataverse integration, AI-assisted design, authentication, and the new Server Logic (Power Fx on server) capability.</div><a href="https://learn.microsoft.com/power-pages/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Power BI</div><div class="m-item-desc">Enterprise analytics — reports, dashboards, dataflows, semantic models, Microsoft Fabric integration, and Copilot for Power BI natural-language analytics.</div><a href="https://learn.microsoft.com/power-bi/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🏛️ Governance, ALM &amp; Architecture</div>
+    <div class="m-item"><div class="m-item-icon">🏛️</div><div class="m-item-body"><div class="m-item-title">Power Platform Well-Architected Framework</div><div class="m-item-desc">Five pillars — reliability, security, operational excellence, performance efficiency, and experience optimisation — for building production-grade Power Platform solutions.</div><a href="https://learn.microsoft.com/power-platform/well-architected/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">ALM &amp; DevOps for Power Platform</div><div class="m-item-desc">Solution management, environment strategy, Azure DevOps pipelines, GitHub Actions, Power Platform Build Tools, and managed vs unmanaged solutions lifecycle.</div><a href="https://learn.microsoft.com/power-platform/alm/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Power Platform Admin Center (PPAC)</div><div class="m-item-desc">Environment management, DLP policies, analytics, capacity, tenant settings, and the Copilot Hub for governing AI across all Power Platform assets.</div><a href="https://learn.microsoft.com/power-platform/admin/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧰</div><div class="m-item-body"><div class="m-item-title">CoE Starter Kit</div><div class="m-item-desc">Microsoft's open-source governance framework — inventory dashboards, adoption analytics, compliance processes, and maker management for enterprise Power Platform at scale.</div><a href="https://learn.microsoft.com/power-platform/guidance/coe/starter-kit" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🤖 AI Builder &amp; Dataverse</div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">AI Builder</div><div class="m-item-desc">No-code AI in Power Platform — document processing, object detection, prediction, text classification, and custom AI models powered by Azure AI services.</div><a href="https://learn.microsoft.com/ai-builder/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧱</div><div class="m-item-body"><div class="m-item-title">Dataverse — The Unified Data Foundation</div><div class="m-item-desc">The data platform underpinning all Power Platform and D365 products — tables, relationships, security roles, business rules, Dataverse search, and plug-ins.</div><a href="https://learn.microsoft.com/power-apps/maker/data-platform/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/power-platform/" target="_blank" class="m-cta">⚡ Open Power Platform Docs Hub <span>↗ learn.microsoft.com/power-platform/</span></a>
+</div>`,
+
+  'certifications-cs': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF6FF">🤖</div>
+    <div><div class="modal-title">Copilot Studio Certifications</div><div class="modal-url"><a href="https://learn.microsoft.com/credentials/" target="_blank">learn.microsoft.com/credentials/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">2</div><div class="m-stat-l">Applied Skills</div></div>
+    <div class="m-stat"><div class="m-stat-n">3</div><div class="m-stat-l">Role-Based Certs</div></div>
+    <div class="m-stat"><div class="m-stat-n">Free</div><div class="m-stat-l">Learning Paths</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🏅 Applied Skills (Hands-On Lab Assessment — No Multiple Choice)</div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Create Agents in Microsoft Copilot Studio</div><div class="m-item-desc">Demonstrates ability to build, configure, and publish agents — topics, entities, actions, knowledge sources, and authentication. Scenario-based live lab assessment. <strong>Recommended first credential for agent builders.</strong></div><a href="https://learn.microsoft.com/credentials/applied-skills/create-agents-in-microsoft-copilot-studio/" target="_blank" class="m-item-link">View Credential →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Create and Manage Automated Processes with Power Automate</div><div class="m-item-desc">Scenario-based lab — cloud flows, approvals, connectors, and triggers. Validates real-world automation skills directly complementing agent delivery work.</div><a href="https://learn.microsoft.com/credentials/applied-skills/create-manage-automated-processes-with-power-automate/" target="_blank" class="m-item-link">View Credential →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🎓 Role-Based Certifications</div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">PL-200 — Microsoft Power Platform Functional Consultant Associate</div><div class="m-item-desc">Covers Dataverse, model-driven apps, Power Automate, Copilot Studio agents, and customer engagement. The core consultant certification that includes Copilot Studio agent topics.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧠</div><div class="m-item-body"><div class="m-item-title">AI-102 — Microsoft Azure AI Engineer Associate</div><div class="m-item-desc">Designing and implementing AI solutions on Azure — Azure OpenAI, Cognitive Services, AI Search, and AI agent patterns. Essential for architectures using Azure AI Foundry with Copilot Studio.</div><a href="https://learn.microsoft.com/credentials/certifications/azure-ai-engineer/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">☁️</div><div class="m-item-body"><div class="m-item-title">AI-900 — Azure AI Fundamentals</div><div class="m-item-desc">Foundational understanding of AI concepts, ML, and Azure AI services. Ideal starting point before AI-102 or specialised Copilot Studio credentials.</div><a href="https://learn.microsoft.com/credentials/certifications/azure-ai-fundamentals/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📚 Free Learning Paths &amp; Training</div>
+    <div class="m-item"><div class="m-item-icon">🎓</div><div class="m-item-body"><div class="m-item-title">Agent Academy — Structured Learning Path</div><div class="m-item-desc">Microsoft's self-paced academy for agent design — fundamentals through advanced autonomous agent patterns. Free, modular, and scenario-based.</div><a href="https://microsoft.github.io/agent-academy/" target="_blank" class="m-item-link">Start Academy →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🛤️</div><div class="m-item-body"><div class="m-item-title">Microsoft Learn — Copilot Studio Path</div><div class="m-item-desc">Full official Microsoft Learn path for Copilot Studio — fundamentals, agent building, governance, and extending agents. Free and self-paced.</div><a href="https://learn.microsoft.com/training/paths/work-power-virtual-agents/" target="_blank" class="m-item-link">Start Path →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧪</div><div class="m-item-body"><div class="m-item-title">MCS Architecture Bootcamp (Hands-On)</div><div class="m-item-desc">6-hour intensive with 10 progressive labs — AI assistants, governance, tools, and multi-agent architectures. The most comprehensive free hands-on training available.</div><a href="https://microsoft.github.io/mcs-labs/labs/bootcamp/?event=bootcamp" target="_blank" class="m-item-link">Start Bootcamp →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/credentials/" target="_blank" class="m-cta">🏅 Browse All Microsoft Credentials <span>↗ learn.microsoft.com/credentials/</span></a>
+</div>`,
+
+  'certifications-pp': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF9EE">⚡</div>
+    <div><div class="modal-title">Power Platform Certifications</div><div class="modal-url"><a href="https://learn.microsoft.com/credentials/" target="_blank">learn.microsoft.com/credentials/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">7</div><div class="m-stat-l">Certifications</div></div>
+    <div class="m-stat"><div class="m-stat-n">3+</div><div class="m-stat-l">Applied Skills</div></div>
+    <div class="m-stat"><div class="m-stat-n">PL-900→PL-600</div><div class="m-stat-l">Full Track</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">📊 Full Certification Track — Fundamentals to Expert</div>
+    <div class="m-item"><div class="m-item-icon">🌱</div><div class="m-item-body"><div class="m-item-title">PL-900 — Power Platform Fundamentals</div><div class="m-item-desc">Entry-level certification — the value of Power Platform, core capabilities of Power Apps, Power Automate, Power BI, Power Virtual Agents, and Dataverse. Ideal starting point.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-fundamentals/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📱</div><div class="m-item-body"><div class="m-item-title">PL-100 — Power Platform App Maker Associate</div><div class="m-item-desc">Building canvas apps, model-driven apps, and automated flows without deep development skills. For business users and citizen developers building production apps.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-app-maker/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📋</div><div class="m-item-body"><div class="m-item-title">PL-200 — Power Platform Functional Consultant Associate</div><div class="m-item-desc">Core consultant cert — Dataverse, model-driven apps, automation, Copilot Studio agents, and Power BI. The most widely held Power Platform certification for delivery professionals.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">PL-300 — Microsoft Power BI Data Analyst Associate</div><div class="m-item-desc">Prepare, model, visualise, and analyse data with Power BI — DAX, Power Query, row-level security, gateway config, and publishing to the Power BI service.</div><a href="https://learn.microsoft.com/credentials/certifications/data-analyst-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">PL-400 — Microsoft Power Platform Developer Associate</div><div class="m-item-desc">Building Power Platform solutions with code — Power Apps Component Framework (PCF), custom connectors, Dataverse plug-ins, and integration with Azure services.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-developer-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">PL-500 — Microsoft Power Automate RPA Developer Associate</div><div class="m-item-desc">Designing and implementing RPA solutions — desktop flows, attended and unattended automation, exception handling, and AI Builder integration for process automation.</div><a href="https://learn.microsoft.com/credentials/certifications/power-automate-rpa-developer-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏆</div><div class="m-item-body"><div class="m-item-title">PL-600 — Power Platform Solution Architect Expert</div><div class="m-item-desc">Expert-level — solution architecture, enterprise governance, integration patterns, security models, and leading full Power Platform transformation programmes. Highest credential.</div><a href="https://learn.microsoft.com/credentials/certifications/power-platform-solution-architect-expert/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🏅 Applied Skills (Hands-On Lab Assessments)</div>
+    <div class="m-item"><div class="m-item-icon">📱</div><div class="m-item-body"><div class="m-item-title">Build a Canvas App with Power Apps</div><div class="m-item-desc">Scenario-based live lab — create a canvas app with data source, formulas, navigation, and Dataverse integration. No multiple-choice questions.</div><a href="https://learn.microsoft.com/credentials/applied-skills/build-canvas-app-with-power-apps/" target="_blank" class="m-item-link">View Credential →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔄</div><div class="m-item-body"><div class="m-item-title">Create and Manage Automated Processes with Power Automate</div><div class="m-item-desc">Scenario-based lab — cloud flows, approvals, connectors, and triggers. Validates real-world automation skills in a live environment.</div><a href="https://learn.microsoft.com/credentials/applied-skills/create-manage-automated-processes-with-power-automate/" target="_blank" class="m-item-link">View Credential →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/credentials/" target="_blank" class="m-cta">⚡ Browse All Power Platform Certifications <span>↗ learn.microsoft.com/credentials/</span></a>
+</div>`,
+
+  'certifications-d365': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#FFF4EC">🎯</div>
+    <div><div class="modal-title">Dynamics 365 Certifications</div><div class="modal-url"><a href="https://learn.microsoft.com/credentials/" target="_blank">learn.microsoft.com/credentials/ ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">6</div><div class="m-stat-l">Role-Based Certs</div></div>
+    <div class="m-stat"><div class="m-stat-n">CE + F&amp;O</div><div class="m-stat-l">Both Tracks</div></div>
+    <div class="m-stat"><div class="m-stat-n">MB-700</div><div class="m-stat-l">Architect Expert</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">🤝 Customer Engagement Track</div>
+    <div class="m-item"><div class="m-item-icon">💼</div><div class="m-item-body"><div class="m-item-title">MB-210 — Microsoft Dynamics 365 Sales Functional Consultant Associate</div><div class="m-item-desc">Configure D365 Sales — leads, opportunities, quotes, orders, products, forecasting, goals, and Sales Premium AI copilot features. Core Sales delivery cert.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-sales-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎧</div><div class="m-item-body"><div class="m-item-title">MB-230 — Microsoft Dynamics 365 Customer Service Functional Consultant Associate</div><div class="m-item-desc">Configure D365 Customer Service — case management, queues, routing, SLAs, knowledge base, omnichannel, and Copilot agent assist capabilities.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-customer-service-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">MB-260 — Microsoft Dynamics 365 Customer Insights (Data) Specialist</div><div class="m-item-desc">Implement Customer Insights Data (CDP) — data ingestion, profile unification, enrichment, segments, and measures. Specialist cert for the Customer Data Platform.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-customer-insights-data-specialist/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">⚙️ Finance &amp; Operations Track</div>
+    <div class="m-item"><div class="m-item-icon">💰</div><div class="m-item-body"><div class="m-item-title">MB-310 — Microsoft Dynamics 365 Finance Functional Consultant Associate</div><div class="m-item-desc">Configure D365 Finance — general ledger, AP/AR, budgeting, fixed assets, cash &amp; bank management, and financial reporting.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-finance-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏭</div><div class="m-item-body"><div class="m-item-title">MB-330 — Microsoft Dynamics 365 Supply Chain Management Functional Consultant Associate</div><div class="m-item-desc">Configure D365 Supply Chain — inventory, warehousing, procurement, production, master planning, and transportation management.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-supply-chain-management-functional-consultant-associate/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🏆 Architect Expert</div>
+    <div class="m-item"><div class="m-item-icon">🏆</div><div class="m-item-body"><div class="m-item-title">MB-700 — Microsoft Dynamics 365: Finance and Operations Apps Solution Architect Expert</div><div class="m-item-desc">Expert-level — end-to-end F&amp;O solution architecture, integration patterns, data model design, security, upgrade strategy, and leading enterprise D365 transformations. Highest D365 credential.</div><a href="https://learn.microsoft.com/credentials/certifications/dynamics365-finance-and-operations-apps-solution-architect-expert/" target="_blank" class="m-item-link">View Cert →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/credentials/" target="_blank" class="m-cta">🎯 Browse All Dynamics 365 Certifications <span>↗ learn.microsoft.com/credentials/</span></a>
+</div>`
+
+  };
+  if (dynamic[key]) {
+    document.getElementById('modal-content').innerHTML = dynamic[key];
+    document.getElementById('overlay').classList.add('show');
+    return;
+  }
+  const content = modals[key];
+  if (!content) return;
+  document.getElementById('modal-content').innerHTML = content;
+  document.getElementById('overlay').classList.add('show');
+}
+function closeModal(e) {
+  if (e.target === document.getElementById('overlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('overlay').classList.remove('show');
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+</script>
+</body>
+</html>
