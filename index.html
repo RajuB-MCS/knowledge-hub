@@ -137,7 +137,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
     <h1>Knowledge Resources<br><span>Copilot Studio &amp; Agents</span></h1>
     <p>A curated collection of official Microsoft learning labs, governance guides, developer tools, blog posts, and CAT (Copilot Acceleration Team) programs — everything you need to build, deploy, and govern AI agents at enterprise scale.</p>
     <div class="hero-stats">
-      <div class="hero-stat" onclick="openModal('all-hubs')"><div class="hs-n">14</div><div class="hs-l">Resource Hubs</div></div>
+      <div class="hero-stat" onclick="openModal('all-hubs')"><div class="hs-n">15</div><div class="hs-l">Resource Hubs</div></div>
       <div class="hero-stat" onclick="openModal('mcs-labs')"><div class="hs-n">50+</div><div class="hs-l">Labs &amp; Workshops</div></div>
       <div class="hero-stat" onclick="openModal('all-docs')"><div class="hs-n">80+</div><div class="hs-l">Doc Links</div></div>
       <div class="hero-stat" onclick="openModal('mcs-blog')"><div class="hs-n">10+</div><div class="hs-l">Blog Posts</div></div>
@@ -152,6 +152,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       <span onclick="openModal('d365-ce')">🤝 D365 Customer Engagement</span>
       <span onclick="openModal('d365-fo')">⚙️ D365 Finance &amp; Ops</span>
       <span onclick="openModal('power-platform')">⚡ Power Platform</span>
+      <span onclick="openModal('d365-1p-agents')">🤖 D365 1P Agents</span>
       <span onclick="openModal('certifications-cs')">🏅 Certifications</span>
     </div>
   </div>
@@ -447,6 +448,25 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
         <span class="rcard-cta">Explore details →</span>
       </div>
     </div>
+
+    <div class="rcard th-blue" onclick="openModal('d365-1p-agents')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🤖</div>
+        <div class="rcard-title">D365 1P Agents</div>
+        <div class="rcard-url">rajub-mcs.github.io/knowledge-hub/#d365-1p-agents</div>
+        <div class="rcard-desc">A product-by-product reference for official first-party Dynamics 365 agents across Sales, Customer Service, Contact Center, Field Service, Finance, Project Operations, Supply Chain, and Business Central.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-blue">Sales</span>
+        <span class="rcard-pill th-blue">Service</span>
+        <span class="rcard-pill th-blue">ERP</span>
+        <span class="rcard-pill th-blue">Business Central</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-blue">17 Agents</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
   </div>
 
   <!-- Certifications -->
@@ -557,6 +577,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       <span class="qlink-icon">🧭</span>
       <span class="qlink-label">Agent Platform Advisor</span>
       <span class="qlink-sub">Which platform is right for you?</span>
+    </a>
+    <a href="#d365-1p-agents" class="qlink">
+      <span class="qlink-icon">🤖</span>
+      <span class="qlink-label">D365 1P Agents</span>
+      <span class="qlink-sub">Jump to the official agent catalog</span>
     </a>
   </div>
 
@@ -797,7 +822,7 @@ function openModal(key) {
 'all-hubs': `
 <div class="modal-hero">
   <div class="modal-h"><div class="modal-hicon" style="background:#EFF6FF">🌐</div>
-    <div><div class="modal-title">All 7 Resource Hubs</div><div class="modal-url">Click any hub to explore it directly</div></div>
+    <div><div class="modal-title">All 10 Resource Hubs</div><div class="modal-url">Click any hub to explore it directly</div></div>
   </div>
 </div>
 <div class="modal-body">
@@ -811,6 +836,7 @@ function openModal(key) {
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('powercat'),150)"><div class="m-item-icon">⚡</div><div class="m-item-body"><div class="m-item-title">Power CAT Tools &amp; Programs</div><div class="m-item-desc">Creator Kit, CoE Starter Kit, Automation Kit, AI Webinars, Architecture Bootcamps and Agent Hackathons for Power Platform.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent365'),150)"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Agent 365 — Agent Workforce Control Plane</div><div class="m-item-desc">Central hub for managing all AI agents in M365 — SDK, governance resources, RSAC 2026 Entra news, and 8 MVP/community blog posts. Updated April 2026.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent-developer'),150)"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Agent Developer Resources Hub</div><div class="m-item-desc">M365 Agents SDK, Microsoft Agent Framework, Semantic Kernel, MCP, A2A protocol, AI Agents for Beginners, Build/Ignite 2025 sessions, samples, and multi-agent reference architecture.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('d365-1p-agents'),150)"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">D365 1P Agents</div><div class="m-item-desc">Official first-party Dynamics 365 agent catalog across Sales, Service, Contact Center, Field Service, Finance, Project Operations, Supply Chain, and Business Central.</div><a href="#d365-1p-agents" class="m-item-link">Open Hub →</a></div></div>
   </div>
 </div>`,
 
@@ -1113,6 +1139,52 @@ function openModal(key) {
   <a href="https://learn.microsoft.com/power-platform/" target="_blank" class="m-cta">⚡ Open Power Platform Docs Hub <span>↗ learn.microsoft.com/power-platform/</span></a>
 </div>`,
 
+  'd365-1p-agents': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF6FF">🤖</div>
+    <div><div class="modal-title">Dynamics 365 1P Agents</div><div class="modal-url"><a href="https://learn.microsoft.com/dynamics365/copilot/ai-get-started" target="_blank">learn.microsoft.com/dynamics365/copilot/ai-get-started ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">17</div><div class="m-stat-l">Verified 1P Agents</div></div>
+    <div class="m-stat"><div class="m-stat-n">7</div><div class="m-stat-l">Dynamics 365 Products</div></div>
+    <div class="m-stat"><div class="m-stat-n">Learn</div><div class="m-stat-l">Official Source</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section" id="d365-1p-agents-sales"><div class="m-section-title">💼 Dynamics 365 Sales</div>
+    <div class="m-item"><div class="m-item-icon">🎯</div><div class="m-item-body"><div class="m-item-title">Sales Qualification Agent</div><div class="m-item-desc">Researches leads, evaluates fit, drafts outreach, and engages prospects to help qualify pipeline faster.</div><a href="https://learn.microsoft.com/dynamics365/sales/sales-qualification-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔎</div><div class="m-item-body"><div class="m-item-title">Sales Close Agent - Research</div><div class="m-item-desc">Researches opportunities, surfaces emerging risks, and highlights promising deals so sellers can focus on the right pipeline.</div><a href="https://learn.microsoft.com/dynamics365/sales/opportunity-research-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤝</div><div class="m-item-body"><div class="m-item-title">Sales Close Agent - Engage</div><div class="m-item-desc">Executes engagement across the sales cycle with personalized follow-ups, product recommendations, and objection handling.</div><a href="https://learn.microsoft.com/dynamics365/sales/sales-close-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📊</div><div class="m-item-body"><div class="m-item-title">Sales Research Agent</div><div class="m-item-desc">Answers complex business questions over sales data using natural language to accelerate analysis and planning.</div><a href="https://learn.microsoft.com/dynamics365/sales/sales-research-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-service"><div class="m-section-title">🎧 Dynamics 365 Customer Service / Contact Center</div>
+    <div class="m-item"><div class="m-item-icon">🗂️</div><div class="m-item-body"><div class="m-item-title">Case Management Agent</div><div class="m-item-desc">Automates case create, update, resolve, follow-up, and close scenarios to reduce manual service work.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/use/use-case-creation-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">Customer Knowledge Management Agent</div><div class="m-item-desc">Extracts knowledge from closed cases, fills knowledge gaps, and helps keep customer knowledge compliant and current.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/administer/admin-km-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">✅</div><div class="m-item-body"><div class="m-item-title">Quality Evaluation Agent</div><div class="m-item-desc">Creates autonomous or AI-assisted quality evaluations for customer interactions using supervisor-defined frameworks.</div><a href="https://learn.microsoft.com/dynamics365/contact-center/administer/manage-quality-evaluation-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💬</div><div class="m-item-body"><div class="m-item-title">Customer Intent Agent</div><div class="m-item-desc">Discovers and suggests customer intents so teams can better understand common reasons for contact.</div><a href="https://learn.microsoft.com/dynamics365/contact-center/use/use-intent-suggestions" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🎙️</div><div class="m-item-body"><div class="m-item-title">Customer Intent Agent for voice</div><div class="m-item-desc">Autonomously discovers intents for voice experiences to improve self-service and real-time guidance during calls.</div><a href="https://learn.microsoft.com/dynamics365/contact-center/administer/set-up-voice-agents-to-use-intents" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-field-service"><div class="m-section-title">🧰 Dynamics 365 Field Service</div>
+    <div class="m-item"><div class="m-item-icon">📅</div><div class="m-item-body"><div class="m-item-title">Scheduling Operations Agent</div><div class="m-item-desc">Optimizes single-technician schedules by considering priorities, travel time, and promise windows when plans change.</div><a href="https://learn.microsoft.com/dynamics365/field-service/soa-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-finance"><div class="m-section-title">💰 Dynamics 365 Finance</div>
+    <div class="m-item"><div class="m-item-icon">🧾</div><div class="m-item-body"><div class="m-item-title">Account Reconciliation Agent</div><div class="m-item-desc">Continuously identifies reconciliation differences, proposes fixes, and helps resolve subledger versus general ledger gaps.</div><a href="https://learn.microsoft.com/dynamics365/finance/general-ledger/acct-rec-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-project-operations"><div class="m-section-title">📋 Dynamics 365 Project Operations</div>
+    <div class="m-item"><div class="m-item-icon">⏱️</div><div class="m-item-body"><div class="m-item-title">Time Entry Agent</div><div class="m-item-desc">Builds draft time entries from assignments, bookings, and history to reduce missed submissions and manual capture.</div><a href="https://learn.microsoft.com/dynamics365/project-operations/time/enable-time-entry-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧾</div><div class="m-item-body"><div class="m-item-title">Expense Agent</div><div class="m-item-desc">Extracts receipt data, drafts expense entries, itemizes receipts, and groups them into reports with less manual effort.</div><a href="https://learn.microsoft.com/dynamics365/project-operations/expense/expense-agent-setup" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🛂</div><div class="m-item-body"><div class="m-item-title">Approvals Agent</div><div class="m-item-desc">Pre-reviews time, expense, and material entries against policy documents to streamline downstream approval work.</div><a href="https://learn.microsoft.com/dynamics365/project-operations/approvals/approvals-agent-intro" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-supply-chain"><div class="m-section-title">🏭 Dynamics 365 Supply Chain Management</div>
+    <div class="m-item"><div class="m-item-icon">📨</div><div class="m-item-body"><div class="m-item-title">Supplier Communications Agent</div><div class="m-item-desc">Automates repetitive procure-to-pay vendor communications, purchase-order updates, and change-request follow-up tasks.</div><a href="https://learn.microsoft.com/dynamics365/supply-chain/procurement/supplier-com-agent-setup" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <div class="m-section" id="d365-1p-agents-business-central"><div class="m-section-title">🏬 Dynamics 365 Business Central</div>
+    <div class="m-item"><div class="m-item-icon">🛒</div><div class="m-item-body"><div class="m-item-title">Sales Order Agent</div><div class="m-item-desc">Analyzes emailed customer requests, identifies the customer in Business Central, and helps automate sales-order capture.</div><a href="https://learn.microsoft.com/dynamics365/business-central/sales-order-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💸</div><div class="m-item-body"><div class="m-item-title">Payables Agent</div><div class="m-item-desc">Monitors mailboxes for vendor invoices, analyzes invoice content, and drafts invoice records for supervisor review.</div><a href="https://learn.microsoft.com/dynamics365/business-central/payables-agent" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/dynamics365/copilot/ai-get-started" target="_blank" class="m-cta">🤖 Open Official Dynamics 365 AI Agents Source <span>↗ learn.microsoft.com/dynamics365/copilot/ai-get-started</span></a>
+</div>`,
+
   'certifications-cs': `<div class="modal-hero">
   <div class="modal-h">
     <div class="modal-hicon" style="background:#EFF6FF">🤖</div>
@@ -1213,10 +1285,29 @@ function closeModal(e) {
 }
 function closeModalDirect() {
   document.getElementById('overlay').classList.remove('show');
+  if (location.hash && location.hash.startsWith('#d365-1p-agents')) {
+    history.replaceState(null, '', location.pathname + location.search);
+  }
 }
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') closeModalDirect();
 });
+function routeHash() {
+  const hash = window.location.hash || '';
+  if (!hash) return;
+  if (hash.startsWith('#d365-1p-agents')) {
+    openModal('d365-1p-agents');
+    const targetId = hash.slice(1);
+    if (targetId && targetId !== 'd365-1p-agents') {
+      requestAnimationFrame(() => {
+        const target = document.getElementById(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
+  }
+}
+window.addEventListener('hashchange', routeHash);
+window.addEventListener('load', routeHash);
 </script>
 </body>
 </html>
