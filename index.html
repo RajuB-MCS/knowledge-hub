@@ -137,7 +137,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
     <h1>Knowledge Resources<br><span>Copilot Studio &amp; Agents</span></h1>
     <p>A curated collection of official Microsoft learning labs, governance guides, developer tools, blog posts, and CAT (Copilot Acceleration Team) programs — everything you need to build, deploy, and govern AI agents at enterprise scale.</p>
     <div class="hero-stats">
-      <div class="hero-stat" onclick="openModal('all-hubs')"><div class="hs-n">15</div><div class="hs-l">Resource Hubs</div></div>
+      <div class="hero-stat" onclick="openModal('all-hubs')"><div class="hs-n">16</div><div class="hs-l">Resource Hubs</div></div>
       <div class="hero-stat" onclick="openModal('mcs-labs')"><div class="hs-n">50+</div><div class="hs-l">Labs &amp; Workshops</div></div>
       <div class="hero-stat" onclick="openModal('all-docs')"><div class="hs-n">80+</div><div class="hs-l">Doc Links</div></div>
       <div class="hero-stat" onclick="openModal('mcs-blog')"><div class="hs-n">10+</div><div class="hs-l">Blog Posts</div></div>
@@ -150,6 +150,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       <span onclick="openModal('developer-tools')">🔧 Developer Tools</span>
       <span onclick="openModal('analytics-evals')">📊 Analytics &amp; Evals</span>
       <span onclick="openModal('d365-ce')">🤝 D365 Customer Engagement</span>
+      <span onclick="openModal('d365-mcp')">🔌 D365 MCP</span>
       <span onclick="openModal('d365-fo')">⚙️ D365 Finance &amp; Ops</span>
       <span onclick="openModal('power-platform')">⚡ Power Platform</span>
       <span onclick="openModal('d365-1p-agents')">🤖 D365 1P Agents</span>
@@ -389,7 +390,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
   <!-- Dynamics 365 & Power Platform -->
   <div class="section-label">⚙️ Dynamics 365 &amp; Power Platform</div>
   <div class="section-title">Customer Engagement · Finance &amp; Operations · Power Platform</div>
-  <div class="section-sub">Official Microsoft docs, FastTrack resources, and architecture guidance for D365 CE, F&amp;O, and the full Power Platform ecosystem</div>
+  <div class="section-sub">Official Microsoft public documentation, FastTrack resources, and architecture guidance for D365 CE, F&amp;O, MCP, and the full Power Platform ecosystem</div>
 
   <div class="grid">
     <div class="rcard th-orange" onclick="openModal('d365-ce')">
@@ -426,6 +427,25 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       </div>
       <div class="rcard-footer">
         <span class="rcard-pill th-teal">FastTrack</span>
+        <span class="rcard-cta">Explore details →</span>
+      </div>
+    </div>
+
+    <div class="rcard th-green" onclick="openModal('d365-mcp')">
+      <div class="rcard-header">
+        <div class="rcard-icon">🔌</div>
+        <div class="rcard-title">Dynamics 365 MCP Servers</div>
+        <div class="rcard-url">learn.microsoft.com/dynamics365/...</div>
+        <div class="rcard-desc">Official Microsoft Learn links for Dynamics 365 ERP MCP, Sales MCP, and Customer Service MCP, including agent-building guidance for Copilot Studio, VS Code, and Foundry scenarios.</div>
+      </div>
+      <div class="rcard-tag-bar">
+        <span class="rcard-pill th-green">ERP MCP</span>
+        <span class="rcard-pill th-green">Sales MCP</span>
+        <span class="rcard-pill th-green">Service MCP</span>
+        <span class="rcard-pill th-green">Public Learn</span>
+      </div>
+      <div class="rcard-footer">
+        <span class="rcard-pill th-green">Agent Integration</span>
         <span class="rcard-cta">Explore details →</span>
       </div>
     </div>
@@ -582,6 +602,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       <span class="qlink-icon">🤖</span>
       <span class="qlink-label">D365 1P Agents</span>
       <span class="qlink-sub">Jump to the official agent catalog</span>
+    </a>
+    <a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank" class="qlink">
+      <span class="qlink-icon">🔌</span>
+      <span class="qlink-label">Dynamics 365 MCP</span>
+      <span class="qlink-sub">Official ERP MCP docs on Microsoft Learn</span>
     </a>
   </div>
 
@@ -822,7 +847,7 @@ function openModal(key) {
 'all-hubs': `
 <div class="modal-hero">
   <div class="modal-h"><div class="modal-hicon" style="background:#EFF6FF">🌐</div>
-    <div><div class="modal-title">All 10 Resource Hubs</div><div class="modal-url">Click any hub to explore it directly</div></div>
+    <div><div class="modal-title">All 11 Resource Hubs</div><div class="modal-url">Click any hub to explore it directly</div></div>
   </div>
 </div>
 <div class="modal-body">
@@ -836,6 +861,7 @@ function openModal(key) {
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('powercat'),150)"><div class="m-item-icon">⚡</div><div class="m-item-body"><div class="m-item-title">Power CAT Tools &amp; Programs</div><div class="m-item-desc">Creator Kit, CoE Starter Kit, Automation Kit, AI Webinars, Architecture Bootcamps and Agent Hackathons for Power Platform.</div><a href="https://microsoft.github.io/powercat/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent365'),150)"><div class="m-item-icon">🎛️</div><div class="m-item-body"><div class="m-item-title">Agent 365 — Agent Workforce Control Plane</div><div class="m-item-desc">Central hub for managing all AI agents in M365 — SDK, governance resources, RSAC 2026 Entra news, and 8 MVP/community blog posts. Updated April 2026.</div><a href="https://microsoft.github.io/agent-resources/agent365/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('agent-developer'),150)"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Agent Developer Resources Hub</div><div class="m-item-desc">M365 Agents SDK, Microsoft Agent Framework, Semantic Kernel, MCP, A2A protocol, AI Agents for Beginners, Build/Ignite 2025 sessions, samples, and multi-agent reference architecture.</div><a href="https://microsoft.github.io/agent-resources/develop-agents/" target="_blank" class="m-item-link">Open Hub →</a></div></div>
+    <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('d365-mcp'),150)"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 MCP Servers</div><div class="m-item-desc">Official Microsoft Learn docs for ERP MCP, Sales MCP, and Customer Service MCP — including agent setup for Copilot Studio, VS Code, and Foundry.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank" class="m-item-link">Open Docs →</a></div></div>
     <div class="m-item" style="cursor:pointer" onclick="closeModalDirect();setTimeout(()=>openModal('d365-1p-agents'),150)"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">D365 1P Agents</div><div class="m-item-desc">Official first-party Dynamics 365 agent catalog across Sales, Service, Contact Center, Field Service, Finance, Project Operations, Supply Chain, and Business Central.</div><a href="#d365-1p-agents" class="m-item-link">Open Hub →</a></div></div>
   </div>
 </div>`,
@@ -1061,15 +1087,18 @@ function openModal(key) {
     <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Sales Documentation</div><div class="m-item-desc">Setup, configuration, forecasting, pipelines, lead management, sequences, and Sales Premium AI features — full official documentation hub.</div><a href="https://learn.microsoft.com/dynamics365/sales/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">First-Party AI Sales Agents</div><div class="m-item-desc">Sales Qualification Agent, Sales Close Agent, Sales Research Agent, and Data Enrichment Agent — Microsoft's first-party agentic scenarios built directly into D365 Sales Premium.</div><a href="https://learn.microsoft.com/dynamics365/sales/copilot-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🎯</div><div class="m-item-body"><div class="m-item-title">Copilot for Sales (Viva Sales Features)</div><div class="m-item-desc">AI-powered selling — meeting summaries, email drafts, opportunity scoring, and CRM data enrichment from Outlook and Teams via Microsoft 365 Copilot for Sales.</div><a href="https://learn.microsoft.com/dynamics365/sales/enable-setup-copilot-sales" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Sales MCP Server</div><div class="m-item-desc">Official Microsoft Learn guidance for connecting AI agents and assistants to the Dynamics 365 Sales MCP Server, including VS Code with GitHub Copilot and related tool references.</div><a href="https://learn.microsoft.com/dynamics365/sales/connect-agents-to-model-context-protocol" target="_blank" class="m-item-link">Read Docs →</a></div></div>
   </div>
   <div class="m-section"><div class="m-section-title">🎧 D365 Customer Service &amp; Contact Center</div>
     <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">D365 Customer Service Documentation</div><div class="m-item-desc">Case management, knowledge base, unified routing, SLAs, omnichannel, and Agent Assist with Copilot — enterprise customer service platform documentation.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">📞</div><div class="m-item-body"><div class="m-item-title">D365 Contact Center (CCaaS)</div><div class="m-item-desc">Microsoft's cloud contact centre — voice, digital channels, IVR, workforce management (WFM), real-time transcription, sentiment analysis, and Copilot agent assistance.</div><a href="https://learn.microsoft.com/dynamics365/contact-center/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🔧</div><div class="m-item-body"><div class="m-item-title">Unified Routing &amp; Intelligent Routing</div><div class="m-item-desc">AI-based work classification and routing — skills-based, capacity-based, and sentiment-based routing across voice, chat, email, and social channels.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/overview-unified-routing" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Customer Service MCP Server</div><div class="m-item-desc">Official Microsoft Learn preview documentation for connecting Dynamics 365 Customer Service to MCP-based AI agents, with configuration prerequisites and Copilot Studio integration guidance.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/administer/configure-customer-service-mcp-server" target="_blank" class="m-item-link">Read Docs →</a></div></div>
   </div>
   <div class="m-section"><div class="m-section-title">📊 Customer Insights (Data &amp; Journeys)</div>
     <div class="m-item"><div class="m-item-icon">🧩</div><div class="m-item-body"><div class="m-item-title">Customer Insights — Data (CDP)</div><div class="m-item-desc">Unified customer profiles, profile unification, data sources, measures, segmentation, and predictive intelligence — the enterprise Customer Data Platform.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/data/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🗺️</div><div class="m-item-body"><div class="m-item-title">Customer Insights — Journeys (Real-Time Marketing)</div><div class="m-item-desc">Real-time customer journeys, event management, consent management, AI-optimised sending, and segment-based campaigns across email, SMS, push, and forms.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/journeys/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📘</div><div class="m-item-body"><div class="m-item-title">Customer Insights Product Overview</div><div class="m-item-desc">Public Microsoft Learn overview for Customer Insights Data and Journeys, covering unified profiles, audience segmentation, journey orchestration, and product entry points.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
   </div>
   <div class="m-section"><div class="m-section-title">🚀 FastTrack &amp; Implementation</div>
     <div class="m-item"><div class="m-item-icon">🏃</div><div class="m-item-body"><div class="m-item-title">FastTrack for Dynamics 365</div><div class="m-item-desc">Microsoft's Success by Design framework — solution blueprints, go-live readiness, and proactive architectural guidance for D365 CE implementations.</div><a href="https://learn.microsoft.com/dynamics365/fasttrack/" target="_blank" class="m-item-link">Read Docs →</a></div></div>
@@ -1104,8 +1133,43 @@ function openModal(key) {
     <div class="m-item"><div class="m-item-icon">🌐</div><div class="m-item-body"><div class="m-item-title">Lifecycle Services (LCS)</div><div class="m-item-desc">Cloud-hosted project collaboration, environment management, code upgrades, business process modelling, and go-live readiness assessments for F&amp;O.</div><a href="https://lcs.dynamics.com" target="_blank" class="m-item-link">Open LCS →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🏃</div><div class="m-item-body"><div class="m-item-title">FastTrack for Finance &amp; Operations</div><div class="m-item-desc">Success by Design for F&amp;O — fit gap analysis, solution design review, data migration strategy, performance benchmarking, and pre-go-live readiness assessments.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/fin-ops/imp-lifecycle/fasttrack-dynamics-365-overview" target="_blank" class="m-item-link">Read Docs →</a></div></div>
     <div class="m-item"><div class="m-item-icon">🏗️</div><div class="m-item-body"><div class="m-item-title">D365 Implementation Guidance (F&amp;O)</div><div class="m-item-desc">Architecture patterns, integration design, data migration, upgrade paths (AX→D365), testing strategy, and go-live checklists for F&amp;O programmes.</div><a href="https://learn.microsoft.com/dynamics365/guidance/" target="_blank" class="m-item-link">Read Guide →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 ERP MCP</div><div class="m-item-desc">Official Microsoft Learn overview for the Dynamics 365 ERP MCP server, including how to expose finance and operations business logic and data to agents without custom connectors.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank" class="m-item-link">Read Docs →</a></div></div>
   </div>
   <a href="https://learn.microsoft.com/dynamics365/fin-ops-core/" target="_blank" class="m-cta">⚙️ Open D365 Finance &amp; Operations Docs <span>↗ learn.microsoft.com/dynamics365/fin-ops-core/</span></a>
+</div>`,
+
+  'd365-mcp': `<div class="modal-hero">
+  <div class="modal-h">
+    <div class="modal-hicon" style="background:#EFF9EE">🔌</div>
+    <div><div class="modal-title">Dynamics 365 MCP Servers</div><div class="modal-url"><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank">learn.microsoft.com/dynamics365/.../copilot-mcp ↗</a></div></div>
+  </div>
+  <div class="m-stat-row">
+    <div class="m-stat"><div class="m-stat-n">3</div><div class="m-stat-l">Official MCP Families</div></div>
+    <div class="m-stat"><div class="m-stat-n">Learn</div><div class="m-stat-l">Public Microsoft Docs</div></div>
+    <div class="m-stat"><div class="m-stat-n">VS Code + Studio</div><div class="m-stat-l">Agent Build Paths</div></div>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="m-section"><div class="m-section-title">⚙️ Dynamics 365 ERP MCP</div>
+    <div class="m-item"><div class="m-item-icon">📘</div><div class="m-item-body"><div class="m-item-title">Use Model Context Protocol for finance and operations apps</div><div class="m-item-desc">Top-level official overview for the Dynamics 365 ERP MCP server, including prerequisites, allowed clients, and how agents access finance and operations business logic.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank" class="m-item-link">Read Overview →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🤖</div><div class="m-item-body"><div class="m-item-title">Build an agent with Dynamics 365 ERP MCP</div><div class="m-item-desc">Official Copilot Studio guidance for adding the ERP MCP server to an agent and using finance and operations tools securely in business workflows.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/build-agent-mcp" target="_blank" class="m-item-link">Build with Copilot Studio →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">💻</div><div class="m-item-body"><div class="m-item-title">Connect to the ERP MCP server by using Visual Studio Code</div><div class="m-item-desc">Official setup path for connecting GitHub Copilot in VS Code to the Dynamics 365 ERP MCP server using the public MCP protocol flow.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/mcp/mcp-vscode" target="_blank" class="m-item-link">Use in VS Code →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">☁️</div><div class="m-item-body"><div class="m-item-title">Connect to the ERP MCP server with Microsoft Foundry</div><div class="m-item-desc">Official Learn guidance for exposing Dynamics 365 ERP tools in Microsoft Foundry agents, including Entra ID setup and allowed MCP clients.</div><a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/mcp/mcp-foundry" target="_blank" class="m-item-link">Use in Foundry →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">💼 Dynamics 365 Sales MCP</div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Connect your AI agents and assistants to Dynamics 365 Sales MCP Server</div><div class="m-item-desc">Official Microsoft Learn documentation for connecting Sales MCP to GitHub Copilot in VS Code and other agent clients that support MCP.</div><a href="https://learn.microsoft.com/dynamics365/sales/connect-agents-to-model-context-protocol" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Sales documentation hub</div><div class="m-item-desc">The full public documentation hub for Dynamics 365 Sales, including Copilot, qualification, opportunity management, forecasting, sequences, and sales acceleration.</div><a href="https://learn.microsoft.com/dynamics365/sales/" target="_blank" class="m-item-link">Open Sales Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">🎧 Dynamics 365 Customer Service MCP</div>
+    <div class="m-item"><div class="m-item-icon">🔌</div><div class="m-item-body"><div class="m-item-title">Connect to Dynamics 365 Customer Service MCP Server</div><div class="m-item-desc">Official preview documentation for configuring the Customer Service MCP Server and using it with Copilot Studio and MCP-capable agent platforms.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/administer/configure-customer-service-mcp-server" target="_blank" class="m-item-link">Read Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">📚</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Customer Service documentation hub</div><div class="m-item-desc">Public documentation for case management, unified routing, digital channels, knowledge management, Copilot experiences, and service operations.</div><a href="https://learn.microsoft.com/dynamics365/customer-service/" target="_blank" class="m-item-link">Open Service Docs →</a></div></div>
+  </div>
+  <div class="m-section"><div class="m-section-title">📊 Related product docs</div>
+    <div class="m-item"><div class="m-item-icon">🧩</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Customer Insights</div><div class="m-item-desc">Public Microsoft Learn documentation for Customer Insights Data and Journeys, covering customer profiles, segmentation, and real-time engagement.</div><a href="https://learn.microsoft.com/dynamics365/customer-insights/" target="_blank" class="m-item-link">Open Customer Insights Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🧰</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Field Service</div><div class="m-item-desc">Official product overview and documentation for work orders, inspections, resource scheduling, connected field service, and field operations.</div><a href="https://learn.microsoft.com/dynamics365/field-service/overview" target="_blank" class="m-item-link">Open Field Service Docs →</a></div></div>
+    <div class="m-item"><div class="m-item-icon">🏬</div><div class="m-item-body"><div class="m-item-title">Dynamics 365 Business Central</div><div class="m-item-desc">Official Business Central documentation for ERP scenarios spanning finance, supply chain, projects, and integrations for SMB and mid-market deployments.</div><a href="https://learn.microsoft.com/dynamics365/business-central/welcome" target="_blank" class="m-item-link">Open Business Central Docs →</a></div></div>
+  </div>
+  <a href="https://learn.microsoft.com/dynamics365/fin-ops-core/dev-itpro/copilot/copilot-mcp" target="_blank" class="m-cta">🔌 Open Dynamics 365 MCP Documentation <span>↗ Microsoft Learn public docs</span></a>
 </div>`,
 
   'power-platform': `<div class="modal-hero">
