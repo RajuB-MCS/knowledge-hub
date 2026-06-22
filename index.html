@@ -6,15 +6,16 @@
 <title>Raju Knowledge Resources – Copilot Studio & Agents</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;min-height:100vh}
+body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#F5F7FA 0%,#EEF2FF 60%,#F7F0FB 100%);background-attachment:fixed;color:#1A1A2E;min-height:100vh}
 
 /* ── HERO ── */
-.hero{background:linear-gradient(135deg,#003E8A 0%,#0078D4 55%,#00B0F0 100%);padding:50px 60px 40px;text-align:center;position:relative;overflow:hidden}
+.hero{background:linear-gradient(120deg,#003E8A 0%,#0078D4 22%,#008272 42%,#5C2D91 62%,#B4009E 82%,#D83B01 100%);background-size:220% 220%;animation:heroShift 20s ease infinite;border-bottom:5px solid transparent;border-image:linear-gradient(90deg,#0078D4,#008272,#8764B8,#E3008C,#FF8C00) 1;padding:50px 60px 40px;text-align:center;position:relative;overflow:hidden}
+@keyframes heroShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-inner{position:relative;z-index:1}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 20px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:16px}
 .hero h1{font-size:2.6rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;letter-spacing:-1px}
-.hero h1 span{color:#A8D8FF}
+.hero h1 span{background:linear-gradient(90deg,#FFE08A 0%,#7FE7FF 55%,#FFB0E8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#9FE6FF}
 .hero p{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:680px;margin:0 auto 24px;line-height:1.6}
 .hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
 .hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:12px 22px;color:#fff;text-align:center;cursor:pointer;transition:background .2s,transform .2s}
@@ -27,7 +28,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
 
 /* ── MAIN ── */
 .main{max-width:1280px;margin:0 auto;padding:40px 30px 80px}
-.section-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#0078D4;margin-bottom:8px}
+.section-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;background:linear-gradient(90deg,#0078D4,#8764B8,#E3008C);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#0078D4;margin-bottom:8px}
 .section-title{font-size:1.6rem;font-weight:800;color:#003E8A;margin-bottom:6px}
 .section-sub{font-size:.88rem;color:#666;margin-bottom:28px}
 
@@ -66,8 +67,8 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
 .th-red .rcard-pill{background:#FEF3EE;color:#D83B01}
 
 /* ── FEATURED BANNER ── */
-.featured-banner{background:linear-gradient(135deg,#003E8A,#0078D4);border-radius:18px;padding:28px 32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:box-shadow .2s}
-.featured-banner:hover{box-shadow:0 12px 40px rgba(0,78,212,.25)}
+.featured-banner{background:linear-gradient(120deg,#5C2D91 0%,#0078D4 38%,#008272 70%,#00B294 100%);background-size:180% 180%;animation:heroShift 16s ease infinite;border-radius:18px;padding:28px 32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.featured-banner:hover{box-shadow:0 14px 44px rgba(135,100,184,.35);transform:translateY(-3px)}
 .fb-icon{font-size:3rem;flex-shrink:0}
 .fb-body{flex:1}
 .fb-label{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.7);margin-bottom:4px}
@@ -85,6 +86,18 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
 .qlink-icon{font-size:1.8rem}
 .qlink-label{font-size:.78rem;font-weight:700;color:#003E8A}
 .qlink-sub{font-size:.68rem;color:#888}
+.quick-row .qlink{border-top-width:4px}
+.quick-row .qlink:nth-child(8n+1){border-top-color:#0078D4}
+.quick-row .qlink:nth-child(8n+2){border-top-color:#008272}
+.quick-row .qlink:nth-child(8n+3){border-top-color:#FF8C00}
+.quick-row .qlink:nth-child(8n+4){border-top-color:#8764B8}
+.quick-row .qlink:nth-child(8n+5){border-top-color:#E3008C}
+.quick-row .qlink:nth-child(8n+6){border-top-color:#D83B01}
+.quick-row .qlink:nth-child(8n+7){border-top-color:#00B294}
+.quick-row .qlink:nth-child(8n+8){border-top-color:#107C10}
+.quick-row .qlink:hover{border-top-color:#0078D4}
+.qlink{position:relative}
+.nbadge{position:absolute;top:8px;right:8px;background:linear-gradient(90deg,#E3008C,#FF8C00);color:#fff;font-size:.56rem;font-weight:800;letter-spacing:.5px;padding:2px 7px;border-radius:8px;box-shadow:0 2px 6px rgba(227,0,140,.3)}
 
 /* ── MODAL ── */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:2000;align-items:center;justify-content:center;padding:20px}
@@ -180,6 +193,85 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#F5F7FA;color:#1A1A2E;mi
       </div>
     </div>
     <div class="fb-arrow">›</div>
+  </div>
+
+  <div class="section-label">🆕 Just Published · 2026</div>
+  <div class="section-title">What's New in the Microsoft Agent Stack</div>
+  <div class="section-sub">Newly published official Microsoft Learn docs — Copilot Studio, Microsoft 365 Copilot &amp; agent governance</div>
+
+  <div class="quick-row">
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/whats-new" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">📰</span>
+      <span class="qlink-label">Copilot Studio — What's New</span>
+      <span class="qlink-sub">Release notes &amp; latest capabilities</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/computer-use" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🖥️</span>
+      <span class="qlink-label">Computer Use</span>
+      <span class="qlink-sub">Agents automate web &amp; desktop apps</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/flows-overview" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🔀</span>
+      <span class="qlink-label">Agent Flows &amp; Workflows</span>
+      <span class="qlink-sub">AI-driven + rule-based automation</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/multi-agent-patterns" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🧩</span>
+      <span class="qlink-label">Multi-Agent Orchestration</span>
+      <span class="qlink-sub">Connected-agent patterns &amp; best practices</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/ai-capabilities" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">✨</span>
+      <span class="qlink-label">AI Capabilities (Guidance)</span>
+      <span class="qlink-sub">Generative orchestration &amp; reasoning</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/overview" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🧱</span>
+      <span class="qlink-label">Agents Experience</span>
+      <span class="qlink-sub">New authoring &amp; runtime overview</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/researcher-agent" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🔬</span>
+      <span class="qlink-label">Researcher Agent</span>
+      <span class="qlink-sub">Deep multi-step research in M365 Copilot</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-tuning-overview" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🎛️</span>
+      <span class="qlink-label">Copilot Tuning</span>
+      <span class="qlink-sub">Tune models on your org data (preview)</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/agent-essentials/m365-agents-admin-guide" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🛡️</span>
+      <span class="qlink-label">Agents Admin Guide</span>
+      <span class="qlink-sub">Copilot Control System governance</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agents-overview" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🤖</span>
+      <span class="qlink-label">Agents for M365 Copilot</span>
+      <span class="qlink-sub">Build &amp; extend M365 Copilot agents</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/microsoft-365/copilot/release-notes" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">📝</span>
+      <span class="qlink-label">M365 Copilot Release Notes</span>
+      <span class="qlink-sub">Monthly feature updates</span>
+    </a>
+    <a href="https://learn.microsoft.com/en-us/azure/foundry/agents/how-to/tools/model-context-protocol" target="_blank" class="qlink">
+      <span class="nbadge">NEW</span>
+      <span class="qlink-icon">🔌</span>
+      <span class="qlink-label">Foundry Agents — MCP Tools</span>
+      <span class="qlink-sub">Model Context Protocol in Azure Foundry</span>
+    </a>
   </div>
 
   <div class="section-label">🧪 Hands-On Learning</div>
