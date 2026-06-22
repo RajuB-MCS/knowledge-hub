@@ -9,43 +9,43 @@
 body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#F5F7FA 0%,#EEF2FF 60%,#F7F0FB 100%);background-attachment:fixed;color:#1A1A2E;min-height:100vh}
 
 /* ── HERO ── */
-.hero{background:linear-gradient(120deg,#003E8A 0%,#0078D4 22%,#008272 42%,#5C2D91 62%,#B4009E 82%,#D83B01 100%);background-size:220% 220%;animation:heroShift 20s ease infinite;border-bottom:5px solid transparent;border-image:linear-gradient(90deg,#0078D4,#008272,#8764B8,#E3008C,#FF8C00) 1;padding:50px 60px 40px;text-align:center;position:relative;overflow:hidden}
+.hero{background:linear-gradient(120deg,#003E8A 0%,#0078D4 22%,#008272 42%,#5C2D91 62%,#B4009E 82%,#D83B01 100%);background-size:220% 220%;animation:heroShift 20s ease infinite;border-bottom:5px solid transparent;border-image:linear-gradient(90deg,#0078D4,#008272,#8764B8,#E3008C,#FF8C00) 1;padding:34px 60px 28px;text-align:center;position:relative;overflow:hidden}
 @keyframes heroShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")}
 .hero-inner{position:relative;z-index:1}
-.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 20px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:16px}
-.hero h1{font-size:2.6rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:10px;letter-spacing:-1px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:6px 20px;font-size:.82rem;font-weight:600;color:rgba(255,255,255,.9);margin-bottom:12px}
+.hero h1{font-size:2.4rem;font-weight:900;color:#fff;line-height:1.18;margin-bottom:8px;letter-spacing:-1px}
 .hero h1 span{background:linear-gradient(90deg,#FFE08A 0%,#7FE7FF 55%,#FFB0E8 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#9FE6FF}
-.hero p{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:680px;margin:0 auto 24px;line-height:1.6}
-.hero-stats{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
-.hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:12px 22px;color:#fff;text-align:center;cursor:pointer;transition:background .2s,transform .2s}
+.hero p{font-size:1rem;color:rgba(255,255,255,.8);max-width:680px;margin:0 auto 16px;line-height:1.5}
+.hero-stats{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:14px;padding:9px 20px;color:#fff;text-align:center;cursor:pointer;transition:background .2s,transform .2s}
 .hero-stat:hover{background:rgba(255,255,255,.28);transform:translateY(-3px)}
-.hero-stat .hs-n{font-size:1.5rem;font-weight:900;line-height:1}
+.hero-stat .hs-n{font-size:1.4rem;font-weight:900;line-height:1}
 .hero-stat .hs-l{font-size:.72rem;opacity:.8;margin-top:3px}
-.hero-meta{display:flex;gap:10px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.hero-meta{display:flex;gap:8px;justify-content:center;margin-top:14px;flex-wrap:wrap}
 .hero-meta span{background:rgba(255,255,255,.12);color:rgba(255,255,255,.85);border-radius:12px;padding:4px 14px;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .2s,transform .2s}
 .hero-meta span:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
 
 /* ── MAIN ── */
-.main{max-width:1280px;margin:0 auto;padding:40px 30px 80px}
+.main{max-width:1280px;margin:0 auto;padding:26px 30px 48px}
 .section-label{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;background:linear-gradient(90deg,#0078D4,#8764B8,#E3008C);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#0078D4;margin-bottom:8px}
 .section-title{font-size:1.6rem;font-weight:800;color:#003E8A;margin-bottom:6px}
-.section-sub{font-size:.88rem;color:#666;margin-bottom:28px}
+.section-sub{font-size:.88rem;color:#666;margin-bottom:18px}
 
 /* ── GRID ── */
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:50px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
 @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}}
 @media(max-width:580px){.grid{grid-template-columns:1fr}}
 
 /* ── RESOURCE CARD ── */
 .rcard{background:#fff;border-radius:18px;border:2px solid #E8ECF4;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden;display:flex;flex-direction:column;position:relative}
 .rcard:hover{transform:translateY(-6px);box-shadow:0 16px 45px rgba(0,78,212,.12);border-color:#0078D4}
-.rcard-header{padding:22px 22px 14px;position:relative}
+.rcard-header{padding:16px 18px 10px;position:relative}
 .rcard-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:12px;flex-shrink:0}
 .rcard-title{font-size:1.05rem;font-weight:800;color:#003E8A;margin-bottom:4px;line-height:1.3}
 .rcard-url{font-size:.68rem;color:#0078D4;word-break:break-all;margin-bottom:8px;opacity:.8}
 .rcard-desc{font-size:.82rem;color:#555;line-height:1.5}
-.rcard-footer{margin-top:auto;padding:14px 22px;display:flex;gap:8px;align-items:center;border-top:1px solid #F0F4F8}
+.rcard-footer{margin-top:auto;padding:10px 18px;display:flex;gap:8px;align-items:center;border-top:1px solid #F0F4F8}
 .rcard-pill{font-size:.7rem;font-weight:700;border-radius:10px;padding:3px 10px}
 .rcard-cta{margin-left:auto;font-size:.75rem;font-weight:700;color:#0078D4;white-space:nowrap}
 .rcard-tag-bar{display:flex;flex-wrap:wrap;gap:5px;padding:0 22px 14px}
@@ -67,7 +67,7 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#
 .th-red .rcard-pill{background:#FEF3EE;color:#D83B01}
 
 /* ── FEATURED BANNER ── */
-.featured-banner{background:linear-gradient(120deg,#5C2D91 0%,#0078D4 38%,#008272 70%,#00B294 100%);background-size:180% 180%;animation:heroShift 16s ease infinite;border-radius:18px;padding:28px 32px;margin-bottom:40px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:box-shadow .2s,transform .2s}
+.featured-banner{background:linear-gradient(120deg,#5C2D91 0%,#0078D4 38%,#008272 70%,#00B294 100%);background-size:180% 180%;animation:heroShift 16s ease infinite;border-radius:18px;padding:20px 28px;margin-bottom:26px;display:flex;align-items:center;gap:24px;cursor:pointer;transition:box-shadow .2s,transform .2s}
 .featured-banner:hover{box-shadow:0 14px 44px rgba(135,100,184,.35);transform:translateY(-3px)}
 .fb-icon{font-size:3rem;flex-shrink:0}
 .fb-body{flex:1}
@@ -79,11 +79,11 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#
 .fb-tag{background:rgba(255,255,255,.15);color:#fff;border-radius:12px;padding:3px 12px;font-size:.73rem;font-weight:600}
 
 /* ── QUICK LINKS ROW ── */
-.quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:50px}
+.quick-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:32px}
 @media(max-width:800px){.quick-row{grid-template-columns:1fr 1fr}}
-.qlink{background:#fff;border:2px solid #E8ECF4;border-radius:14px;padding:16px;text-align:center;text-decoration:none;color:inherit;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:8px}
+.qlink{background:#fff;border:2px solid #E8ECF4;border-radius:14px;padding:12px 13px;text-align:center;text-decoration:none;color:inherit;transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:6px}
 .qlink:hover{border-color:#0078D4;background:#EFF6FF;transform:translateY(-3px)}
-.qlink-icon{font-size:1.8rem}
+.qlink-icon{font-size:1.6rem}
 .qlink-label{font-size:.78rem;font-weight:700;color:#003E8A}
 .qlink-sub{font-size:.68rem;color:#888}
 .quick-row .qlink{border-top-width:4px}
