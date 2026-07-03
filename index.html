@@ -4,6 +4,15 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>Raju Knowledge Resources – Copilot Studio & Agents</title>
+<!-- ── Microsoft Clarity (partner adoption analytics) — project "Knowledge Hub".
+     Shows unique partners, sessions, % returning visitors, click heatmaps. -->
+<script type="text/javascript">
+(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "xgr5kj9f1k");
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',Arial,sans-serif;background:linear-gradient(180deg,#F5F7FA 0%,#EEF2FF 60%,#F7F0FB 100%);background-attachment:fixed;color:#1A1A2E;min-height:100vh}
@@ -1561,5 +1570,23 @@ function routeHash() {
 window.addEventListener('hashchange', routeHash);
 window.addEventListener('load', routeHash);
 </script>
+
+<!-- ── "Rate this hub" feedback button → Microsoft Forms (5-star rating + comment).
+     Responses auto-summarise in Excel for manager reporting. The click also
+     fires a Clarity event so you can correlate usage with feedback. -->
+<a id="kh-feedback-btn" href="https://forms.cloud.microsoft/r/csbEjWdGx7" target="_blank" rel="noopener"
+   title="Tell us if this hub is useful"
+   onclick="if(window.clarity){clarity('event','feedback_click');clarity('set','feedback','clicked');}">
+   <span class="kh-fb-emoji">⭐</span><span class="kh-fb-text">Rate this hub</span>
+</a>
+<style>
+#kh-feedback-btn{position:fixed;right:22px;bottom:22px;z-index:9999;display:inline-flex;align-items:center;gap:9px;
+  background:linear-gradient(120deg,#0078D4,#008272);color:#fff;text-decoration:none;
+  font:600 14px 'Segoe UI',Arial,sans-serif;padding:12px 18px;border-radius:999px;
+  box-shadow:0 10px 26px rgba(0,62,138,.35);transition:transform .15s ease,box-shadow .15s ease}
+#kh-feedback-btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(0,62,138,.45)}
+#kh-feedback-btn .kh-fb-emoji{font-size:18px;line-height:1}
+@media(max-width:520px){#kh-feedback-btn .kh-fb-text{display:none}#kh-feedback-btn{padding:14px;border-radius:50%}}
+</style>
 </body>
 </html>
